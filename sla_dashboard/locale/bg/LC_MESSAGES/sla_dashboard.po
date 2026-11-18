@@ -29,14 +29,11 @@ msgstr "Прекъсване в рамките на SLO"
 msgid "Below SLO"
 msgstr "Под SLO"
 
-msgid "Overall SLI"
-msgstr "Общ SLI"
+msgid "Incidents"
+msgstr "Инциденти"
 
-msgid "Time-weighted across %1$s services"
-msgstr "Претеглен по време за %1$s услуги"
-
-msgid "Services meeting SLO"
-msgstr "Услуги, покриващи SLO"
+msgid "%1$s services"
+msgstr "%1$s услуги"
 
 msgid "%1$s below SLO"
 msgstr "%1$s под SLO"
@@ -44,70 +41,17 @@ msgstr "%1$s под SLO"
 msgid "All within SLO"
 msgstr "Всички в рамките на SLO"
 
-msgid "Incidents"
-msgstr "Инциденти"
+msgid "%1$s with a problem now"
+msgstr "%1$s с проблем в момента"
 
-msgid "%1$s ongoing now"
-msgstr "%1$s текущи в момента"
+msgid "Other services"
+msgstr "Други услуги"
 
-msgid "None ongoing"
-msgstr "Няма текущи"
+msgid "Components"
+msgstr "Компоненти"
 
-msgid "Mean time to recover"
-msgstr "Средно време за възстановяване"
-
-msgid "MTTR, resolved incidents"
-msgstr "MTTR, решени инциденти"
-
-msgid "SLA compliance"
-msgstr "Съответствие със SLA"
-
-msgid "%1$s services"
-msgstr "%1$s услуги"
-
-msgid "SLI trend"
-msgstr "Тенденция на SLI"
-
-msgid "Per SLA, time-weighted across its services; dashed line = SLO"
-msgstr "За всяко SLA, претеглено по време за услугите му; пунктир = SLO"
-
-msgid "SLI heatmap"
-msgstr "Топлинна карта на SLI"
-
-msgid "Each cell is one period of one service, compared with the SLO of its SLA"
-msgstr "Всяка клетка е един период на една услуга, сравнен със SLO на нейното SLA"
-
-msgid "No downtime in the selected period."
-msgstr "Няма прекъсване в избрания период."
-
-msgid "Error budget used"
-msgstr "Използван бюджет за грешки"
-
-msgid "Downtime as a share of what the SLO allows; marker = 100%"
-msgstr "Прекъсване като дял от позволеното от SLO; маркер = 100%"
-
-msgid "Top downtime"
-msgstr "Най-много прекъсвания"
-
-msgid "Services with the most downtime in the selected period"
-msgstr "Услуги с най-много прекъсване в избрания период"
-
-#. Mean time to recover, abbreviation (table column)
-msgid "MTTR"
-msgstr "MTTR"
-
-#. table column with a sparkline
-msgid "Trend"
-msgstr "Тенденция"
-
-msgid "Click a service to open its SLA report"
-msgstr "Щракнете върху услуга, за да отворите нейния SLA отчет"
-
-msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
-msgstr "Няма активирано SLA, отговарящо на филтъра. Изберете други SLA, услуги, хостове или тагове във филтъра по-горе."
-
-msgid "No service matches the filter."
-msgstr "Няма услуга, отговаряща на филтъра."
+msgid "No service with an enabled SLA matches the filter."
+msgstr "Няма услуга с активирано SLA, която да отговаря на филтъра."
 
 msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
 msgstr "Твърде много периоди за избрания диапазон: показани са последните %1$s. Групирайте по по-дълъг период или изберете по-кратък диапазон."

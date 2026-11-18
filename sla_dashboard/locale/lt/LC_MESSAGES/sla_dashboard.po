@@ -29,14 +29,11 @@ msgstr "Prastovos neviršija SLO"
 msgid "Below SLO"
 msgstr "Žemiau SLO"
 
-msgid "Overall SLI"
-msgstr "Bendras SLI"
+msgid "Incidents"
+msgstr "Incidentai"
 
-msgid "Time-weighted across %1$s services"
-msgstr "Svertinis pagal laiką, %1$s paslaugos"
-
-msgid "Services meeting SLO"
-msgstr "Paslaugos, atitinkančios SLO"
+msgid "%1$s services"
+msgstr "Paslaugų: %1$s"
 
 msgid "%1$s below SLO"
 msgstr "%1$s žemiau SLO"
@@ -44,70 +41,17 @@ msgstr "%1$s žemiau SLO"
 msgid "All within SLO"
 msgstr "Visos atitinka SLO"
 
-msgid "Incidents"
-msgstr "Incidentai"
+msgid "%1$s with a problem now"
+msgstr "%1$s šiuo metu su problema"
 
-msgid "%1$s ongoing now"
-msgstr "%1$s vyksta dabar"
+msgid "Other services"
+msgstr "Kitos paslaugos"
 
-msgid "None ongoing"
-msgstr "Vykstančių nėra"
+msgid "Components"
+msgstr "Komponentai"
 
-msgid "Mean time to recover"
-msgstr "Vidutinis atkūrimo laikas"
-
-msgid "MTTR, resolved incidents"
-msgstr "MTTR, išspręsti incidentai"
-
-msgid "SLA compliance"
-msgstr "SLA atitiktis"
-
-msgid "%1$s services"
-msgstr "Paslaugų: %1$s"
-
-msgid "SLI trend"
-msgstr "SLI tendencija"
-
-msgid "Per SLA, time-weighted across its services; dashed line = SLO"
-msgstr "Pagal SLA, svertinis pagal laiką jo paslaugoms; punktyrinė linija = SLO"
-
-msgid "SLI heatmap"
-msgstr "SLI šilumos žemėlapis"
-
-msgid "Each cell is one period of one service, compared with the SLO of its SLA"
-msgstr "Kiekvienas langelis – vienos paslaugos vienas laikotarpis, palygintas su jos SLA SLO"
-
-msgid "No downtime in the selected period."
-msgstr "Pasirinktu laikotarpiu prastovų nebuvo."
-
-msgid "Error budget used"
-msgstr "Panaudotas klaidų biudžetas"
-
-msgid "Downtime as a share of what the SLO allows; marker = 100%"
-msgstr "Prastovos dalis nuo to, ką leidžia SLO; žymeklis = 100%"
-
-msgid "Top downtime"
-msgstr "Didžiausios prastovos"
-
-msgid "Services with the most downtime in the selected period"
-msgstr "Paslaugos, turėjusios daugiausia prastovų pasirinktu laikotarpiu"
-
-#. Mean time to recover, abbreviation (table column)
-msgid "MTTR"
-msgstr "MTTR"
-
-#. table column with a sparkline
-msgid "Trend"
-msgstr "Tendencija"
-
-msgid "Click a service to open its SLA report"
-msgstr "Spustelėkite paslaugą, kad atvertumėte jos SLA ataskaitą"
-
-msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
-msgstr "Filtrą atitinkančių įjungtų SLA nėra. Viršuje esančiame filtre pasirinkite kitus SLA, paslaugas, mazgus arba žymas."
-
-msgid "No service matches the filter."
-msgstr "Filtrą atitinkančių paslaugų nėra."
+msgid "No service with an enabled SLA matches the filter."
+msgstr "Filtrą atitinkančių paslaugų su įjungtu SLA nėra."
 
 msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
 msgstr "Pasirinktam intervalui per daug laikotarpių: rodomi paskutiniai %1$s. Grupuokite pagal ilgesnį laikotarpį arba pasirinkite trumpesnį intervalą."

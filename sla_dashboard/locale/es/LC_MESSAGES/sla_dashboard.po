@@ -29,14 +29,11 @@ msgstr "Tiempo inoperativo dentro del SLO"
 msgid "Below SLO"
 msgstr "Por debajo del SLO"
 
-msgid "Overall SLI"
-msgstr "SLI global"
+msgid "Incidents"
+msgstr "Incidentes"
 
-msgid "Time-weighted across %1$s services"
-msgstr "Ponderado por tiempo en %1$s servicios"
-
-msgid "Services meeting SLO"
-msgstr "Servicios que cumplen el SLO"
+msgid "%1$s services"
+msgstr "%1$s servicios"
 
 msgid "%1$s below SLO"
 msgstr "%1$s por debajo del SLO"
@@ -44,70 +41,17 @@ msgstr "%1$s por debajo del SLO"
 msgid "All within SLO"
 msgstr "Todos dentro del SLO"
 
-msgid "Incidents"
-msgstr "Incidentes"
+msgid "%1$s with a problem now"
+msgstr "%1$s con un problema ahora"
 
-msgid "%1$s ongoing now"
-msgstr "%1$s en curso ahora"
+msgid "Other services"
+msgstr "Otros servicios"
 
-msgid "None ongoing"
-msgstr "Ninguno en curso"
+msgid "Components"
+msgstr "Componentes"
 
-msgid "Mean time to recover"
-msgstr "Tiempo medio de recuperación"
-
-msgid "MTTR, resolved incidents"
-msgstr "MTTR, incidentes resueltos"
-
-msgid "SLA compliance"
-msgstr "Cumplimiento del SLA"
-
-msgid "%1$s services"
-msgstr "%1$s servicios"
-
-msgid "SLI trend"
-msgstr "Tendencia del SLI"
-
-msgid "Per SLA, time-weighted across its services; dashed line = SLO"
-msgstr "Por SLA, ponderado por tiempo en sus servicios; línea discontinua = SLO"
-
-msgid "SLI heatmap"
-msgstr "Mapa de calor del SLI"
-
-msgid "Each cell is one period of one service, compared with the SLO of its SLA"
-msgstr "Cada celda es un período de un servicio, comparado con el SLO de su SLA"
-
-msgid "No downtime in the selected period."
-msgstr "Sin tiempo inoperativo en el período seleccionado."
-
-msgid "Error budget used"
-msgstr "Presupuesto de errores usado"
-
-msgid "Downtime as a share of what the SLO allows; marker = 100%"
-msgstr "Tiempo inoperativo como proporción de lo que permite el SLO; marcador = 100%"
-
-msgid "Top downtime"
-msgstr "Mayor tiempo inoperativo"
-
-msgid "Services with the most downtime in the selected period"
-msgstr "Servicios con más tiempo inoperativo en el período seleccionado"
-
-#. Mean time to recover, abbreviation (table column)
-msgid "MTTR"
-msgstr "MTTR"
-
-#. table column with a sparkline
-msgid "Trend"
-msgstr "Tendencia"
-
-msgid "Click a service to open its SLA report"
-msgstr "Haga clic en un servicio para abrir su informe SLA"
-
-msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
-msgstr "Ningún SLA habilitado coincide con el filtro. Elija otros SLA, servicios, equipos o etiquetas en el filtro de arriba."
-
-msgid "No service matches the filter."
-msgstr "Ningún servicio coincide con el filtro."
+msgid "No service with an enabled SLA matches the filter."
+msgstr "Ningún servicio con un SLA habilitado coincide con el filtro."
 
 msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
 msgstr "Demasiados períodos para el rango seleccionado: se muestran los últimos %1$s. Agrupe por un período más largo o elija un rango más corto."

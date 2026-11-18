@@ -164,7 +164,35 @@ class CSlaCollector {
 			];
 		}
 
+		$result['nodes'] = $result['rows'] ? self::tree() : [];
+
 		return $result;
+	}
+
+	/**
+	 * Árvore de serviços visível ao usuário ({id: [nome, status, pais, filhos]}), para a navegação:
+	 * a página mostra no topo os serviços medidos que não têm ancestral medido e desce pelos filhos
+	 * (pulando os nós sem SLA, como a raiz de um provedor whitelabel).
+	 */
+	private static function tree(): array {
+		$services = API::Service()->get([
+			'output' => ['serviceid', 'name', 'status'],
+			'selectParents' => ['serviceid'],
+			'selectChildren' => ['serviceid'],
+			'preservekeys' => true
+		]);
+
+		$nodes = [];
+		foreach ($services as $id => $s) {
+			$nodes[$id] = [
+				$s['name'],
+				(int) $s['status'],
+				array_column($s['parents'], 'serviceid'),
+				array_column($s['children'], 'serviceid')
+			];
+		}
+
+		return $nodes;
 	}
 
 	/** Fuso dos períodos: o das SLAs quando todas usam o mesmo (como no SLA report), senão o do usuário. */

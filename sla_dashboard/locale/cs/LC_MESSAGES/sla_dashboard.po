@@ -29,14 +29,11 @@ msgstr "Prostoj v rámci SLO"
 msgid "Below SLO"
 msgstr "Pod SLO"
 
-msgid "Overall SLI"
-msgstr "Celkové SLI"
+msgid "Incidents"
+msgstr "Incidenty"
 
-msgid "Time-weighted across %1$s services"
-msgstr "Váženo časem přes %1$s služeb"
-
-msgid "Services meeting SLO"
-msgstr "Služby plnící SLO"
+msgid "%1$s services"
+msgstr "%1$s služeb"
 
 msgid "%1$s below SLO"
 msgstr "%1$s pod SLO"
@@ -44,70 +41,17 @@ msgstr "%1$s pod SLO"
 msgid "All within SLO"
 msgstr "Vše v rámci SLO"
 
-msgid "Incidents"
-msgstr "Incidenty"
+msgid "%1$s with a problem now"
+msgstr "%1$s s problémem právě teď"
 
-msgid "%1$s ongoing now"
-msgstr "%1$s právě probíhá"
+msgid "Other services"
+msgstr "Ostatní služby"
 
-msgid "None ongoing"
-msgstr "Žádný neprobíhá"
+msgid "Components"
+msgstr "Komponenty"
 
-msgid "Mean time to recover"
-msgstr "Průměrná doba obnovy"
-
-msgid "MTTR, resolved incidents"
-msgstr "MTTR, vyřešené incidenty"
-
-msgid "SLA compliance"
-msgstr "Plnění SLA"
-
-msgid "%1$s services"
-msgstr "%1$s služeb"
-
-msgid "SLI trend"
-msgstr "Trend SLI"
-
-msgid "Per SLA, time-weighted across its services; dashed line = SLO"
-msgstr "Pro každé SLA, váženo časem přes jeho služby; přerušovaná čára = SLO"
-
-msgid "SLI heatmap"
-msgstr "Teplotní mapa SLI"
-
-msgid "Each cell is one period of one service, compared with the SLO of its SLA"
-msgstr "Každá buňka je jedno období jedné služby, porovnané se SLO jejího SLA"
-
-msgid "No downtime in the selected period."
-msgstr "Ve vybraném období žádný prostoj."
-
-msgid "Error budget used"
-msgstr "Využitý rozpočet chyb"
-
-msgid "Downtime as a share of what the SLO allows; marker = 100%"
-msgstr "Prostoj jako podíl z toho, co SLO povoluje; značka = 100%"
-
-msgid "Top downtime"
-msgstr "Nejvíce prostojů"
-
-msgid "Services with the most downtime in the selected period"
-msgstr "Služby s největším prostojem ve vybraném období"
-
-#. Mean time to recover, abbreviation (table column)
-msgid "MTTR"
-msgstr "MTTR"
-
-#. table column with a sparkline
-msgid "Trend"
-msgstr "Trend"
-
-msgid "Click a service to open its SLA report"
-msgstr "Kliknutím na službu otevřete její report SLA"
-
-msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
-msgstr "Filtru neodpovídá žádné povolené SLA. Vyberte ve filtru výše jiná SLA, služby, hosty nebo tagy."
-
-msgid "No service matches the filter."
-msgstr "Filtru neodpovídá žádná služba."
+msgid "No service with an enabled SLA matches the filter."
+msgstr "Filtru neodpovídá žádná služba s povolenou SLA."
 
 msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
 msgstr "Příliš mnoho období pro vybraný rozsah: zobrazeno posledních %1$s. Seskupte podle delšího období nebo zvolte kratší rozsah."

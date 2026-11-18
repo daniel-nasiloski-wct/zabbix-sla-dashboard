@@ -29,14 +29,11 @@ msgstr "Aksama SLO dahilinde"
 msgid "Below SLO"
 msgstr "SLO altında"
 
-msgid "Overall SLI"
-msgstr "Genel SLI"
+msgid "Incidents"
+msgstr "Olaylar"
 
-msgid "Time-weighted across %1$s services"
-msgstr "%1$s servis genelinde zamana göre ağırlıklı"
-
-msgid "Services meeting SLO"
-msgstr "SLO'yu karşılayan servisler"
+msgid "%1$s services"
+msgstr "%1$s servis"
 
 msgid "%1$s below SLO"
 msgstr "%1$s SLO altında"
@@ -44,70 +41,17 @@ msgstr "%1$s SLO altında"
 msgid "All within SLO"
 msgstr "Tümü SLO dahilinde"
 
-msgid "Incidents"
-msgstr "Olaylar"
+msgid "%1$s with a problem now"
+msgstr "%1$s şu anda problemli"
 
-msgid "%1$s ongoing now"
-msgstr "%1$s şu anda sürüyor"
+msgid "Other services"
+msgstr "Diğer servisler"
 
-msgid "None ongoing"
-msgstr "Süren yok"
+msgid "Components"
+msgstr "Bileşenler"
 
-msgid "Mean time to recover"
-msgstr "Ortalama kurtarma süresi"
-
-msgid "MTTR, resolved incidents"
-msgstr "MTTR, çözülen olaylar"
-
-msgid "SLA compliance"
-msgstr "SLA uyumu"
-
-msgid "%1$s services"
-msgstr "%1$s servis"
-
-msgid "SLI trend"
-msgstr "SLI eğilimi"
-
-msgid "Per SLA, time-weighted across its services; dashed line = SLO"
-msgstr "SLA başına, servisleri genelinde zamana göre ağırlıklı; kesikli çizgi = SLO"
-
-msgid "SLI heatmap"
-msgstr "SLI ısı haritası"
-
-msgid "Each cell is one period of one service, compared with the SLO of its SLA"
-msgstr "Her hücre bir servisin bir dönemidir ve SLA'sının SLO'su ile karşılaştırılır"
-
-msgid "No downtime in the selected period."
-msgstr "Seçilen dönemde aksama yok."
-
-msgid "Error budget used"
-msgstr "Kullanılan hata bütçesi"
-
-msgid "Downtime as a share of what the SLO allows; marker = 100%"
-msgstr "Aksamanın SLO'nun izin verdiğine oranı; işaret = %100"
-
-msgid "Top downtime"
-msgstr "En çok aksama"
-
-msgid "Services with the most downtime in the selected period"
-msgstr "Seçilen dönemde en çok aksama yaşayan servisler"
-
-#. Mean time to recover, abbreviation (table column)
-msgid "MTTR"
-msgstr "MTTR"
-
-#. table column with a sparkline
-msgid "Trend"
-msgstr "Eğilim"
-
-msgid "Click a service to open its SLA report"
-msgstr "SLA raporunu açmak için bir servise tıklayın"
-
-msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
-msgstr "Filtreyle eşleşen etkin SLA yok. Yukarıdaki filtrede başka SLA'lar, servisler, ana makineler veya etiketler seçin."
-
-msgid "No service matches the filter."
-msgstr "Filtreyle eşleşen servis yok."
+msgid "No service with an enabled SLA matches the filter."
+msgstr "Filtreyle eşleşen, SLA'sı etkin bir servis yok."
 
 msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
 msgstr "Seçilen aralık için çok fazla dönem: son %1$s gösteriliyor. Daha uzun bir döneme göre gruplayın veya daha kısa bir aralık seçin."

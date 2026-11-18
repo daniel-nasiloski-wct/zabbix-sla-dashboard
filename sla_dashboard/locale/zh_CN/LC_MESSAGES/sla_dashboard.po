@@ -29,14 +29,11 @@ msgstr "停机在 SLO 范围内"
 msgid "Below SLO"
 msgstr "低于 SLO"
 
-msgid "Overall SLI"
-msgstr "总体 SLI"
+msgid "Incidents"
+msgstr "事件"
 
-msgid "Time-weighted across %1$s services"
-msgstr "按时间加权，共 %1$s 个服务"
-
-msgid "Services meeting SLO"
-msgstr "达到 SLO 的服务"
+msgid "%1$s services"
+msgstr "%1$s 个服务"
 
 msgid "%1$s below SLO"
 msgstr "%1$s 个低于 SLO"
@@ -44,70 +41,17 @@ msgstr "%1$s 个低于 SLO"
 msgid "All within SLO"
 msgstr "全部在 SLO 范围内"
 
-msgid "Incidents"
-msgstr "事件"
+msgid "%1$s with a problem now"
+msgstr "%1$s 个当前有问题"
 
-msgid "%1$s ongoing now"
-msgstr "%1$s 个正在进行"
+msgid "Other services"
+msgstr "其他服务"
 
-msgid "None ongoing"
-msgstr "无进行中事件"
+msgid "Components"
+msgstr "组件"
 
-msgid "Mean time to recover"
-msgstr "平均恢复时间"
-
-msgid "MTTR, resolved incidents"
-msgstr "MTTR，已解决事件"
-
-msgid "SLA compliance"
-msgstr "SLA 合规"
-
-msgid "%1$s services"
-msgstr "%1$s 个服务"
-
-msgid "SLI trend"
-msgstr "SLI 趋势"
-
-msgid "Per SLA, time-weighted across its services; dashed line = SLO"
-msgstr "按 SLA，在其服务上按时间加权；虚线 = SLO"
-
-msgid "SLI heatmap"
-msgstr "SLI 热力图"
-
-msgid "Each cell is one period of one service, compared with the SLO of its SLA"
-msgstr "每个单元格是一个服务的一个期间，与其 SLA 的 SLO 比较"
-
-msgid "No downtime in the selected period."
-msgstr "所选期间内无停机。"
-
-msgid "Error budget used"
-msgstr "已用错误预算"
-
-msgid "Downtime as a share of what the SLO allows; marker = 100%"
-msgstr "停机占 SLO 允许值的比例；标记 = 100%"
-
-msgid "Top downtime"
-msgstr "停机最多"
-
-msgid "Services with the most downtime in the selected period"
-msgstr "所选期间内停机最多的服务"
-
-#. Mean time to recover, abbreviation (table column)
-msgid "MTTR"
-msgstr "MTTR"
-
-#. table column with a sparkline
-msgid "Trend"
-msgstr "趋势"
-
-msgid "Click a service to open its SLA report"
-msgstr "点击服务以打开其 SLA 报表"
-
-msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
-msgstr "没有已启用的 SLA 匹配筛选条件。请在上方筛选器中选择其他 SLA、服务、主机或标记。"
-
-msgid "No service matches the filter."
-msgstr "没有服务匹配筛选条件。"
+msgid "No service with an enabled SLA matches the filter."
+msgstr "没有启用 SLA 的服务符合筛选条件。"
 
 msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
 msgstr "所选范围的期间过多：仅显示最近 %1$s 个。请按更长的期间分组或选择更短的范围。"

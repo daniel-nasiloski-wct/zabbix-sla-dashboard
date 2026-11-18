@@ -29,14 +29,11 @@ msgstr "Простій у межах SLO"
 msgid "Below SLO"
 msgstr "Нижче SLO"
 
-msgid "Overall SLI"
-msgstr "Загальний SLI"
+msgid "Incidents"
+msgstr "Інциденти"
 
-msgid "Time-weighted across %1$s services"
-msgstr "Зважено за часом для %1$s послуг"
-
-msgid "Services meeting SLO"
-msgstr "Послуги, що відповідають SLO"
+msgid "%1$s services"
+msgstr "Послуг: %1$s"
 
 msgid "%1$s below SLO"
 msgstr "%1$s нижче SLO"
@@ -44,70 +41,17 @@ msgstr "%1$s нижче SLO"
 msgid "All within SLO"
 msgstr "Усі в межах SLO"
 
-msgid "Incidents"
-msgstr "Інциденти"
+msgid "%1$s with a problem now"
+msgstr "%1$s з проблемою зараз"
 
-msgid "%1$s ongoing now"
-msgstr "%1$s триває зараз"
+msgid "Other services"
+msgstr "Інші послуги"
 
-msgid "None ongoing"
-msgstr "Жодного активного"
+msgid "Components"
+msgstr "Компоненти"
 
-msgid "Mean time to recover"
-msgstr "Середній час відновлення"
-
-msgid "MTTR, resolved incidents"
-msgstr "MTTR, вирішені інциденти"
-
-msgid "SLA compliance"
-msgstr "Дотримання SLA"
-
-msgid "%1$s services"
-msgstr "Послуг: %1$s"
-
-msgid "SLI trend"
-msgstr "Тренд SLI"
-
-msgid "Per SLA, time-weighted across its services; dashed line = SLO"
-msgstr "За SLA, зважено за часом для його послуг; пунктир = SLO"
-
-msgid "SLI heatmap"
-msgstr "Теплова карта SLI"
-
-msgid "Each cell is one period of one service, compared with the SLO of its SLA"
-msgstr "Кожна клітинка — один період однієї послуги порівняно з SLO її SLA"
-
-msgid "No downtime in the selected period."
-msgstr "Немає простою за вибраний період."
-
-msgid "Error budget used"
-msgstr "Використано бюджету простою"
-
-msgid "Downtime as a share of what the SLO allows; marker = 100%"
-msgstr "Простій як частка від дозволеного SLO; позначка = 100%"
-
-msgid "Top downtime"
-msgstr "Найбільший простій"
-
-msgid "Services with the most downtime in the selected period"
-msgstr "Послуги з найбільшим часом простою за вибраний період"
-
-#. Mean time to recover, abbreviation (table column)
-msgid "MTTR"
-msgstr "MTTR"
-
-#. table column with a sparkline
-msgid "Trend"
-msgstr "Тренд"
-
-msgid "Click a service to open its SLA report"
-msgstr "Натисніть на послугу, щоб відкрити її звіт SLA"
-
-msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
-msgstr "Жоден увімкнений SLA не відповідає фільтру. Виберіть інші SLA, послуги, вузли мережі або теги у фільтрі вище."
-
-msgid "No service matches the filter."
-msgstr "Жодна послуга не відповідає фільтру."
+msgid "No service with an enabled SLA matches the filter."
+msgstr "Немає послуг з активованою SLA, що відповідають фільтру."
 
 msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
 msgstr "Забагато періодів для вибраного діапазону: показано останні %1$s. Згрупуйте за довшим періодом або виберіть коротший діапазон."

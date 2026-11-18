@@ -2,19 +2,16 @@
 
 A frontend module that adds **Services → SLA dashboard** to Zabbix 8.0: a visual view of how your IT services are doing against their SLAs, with the same filters you already know from the SLA report, Services and Problems pages.
 
-![SLA dashboard, Blue theme](docs/sla-dashboard-blue.png)
+![SLA dashboard, overview](docs/sla-dashboard-blue.png)
 
 ## What it shows
 
-- **KPI tiles**: overall SLI (time-weighted), services meeting their SLO, total downtime, incidents (and how many are ongoing now) and mean time to recover.
-- **SLI trend**: one line per SLA, with its SLO as a dashed line; hover shows every SLA at that period.
-- **SLA compliance**: SLI vs SLO gauge for each SLA, with how many services are below the SLO.
-- **SLI heatmap**: one cell per service and period: no downtime, downtime within the SLO, below the SLO, or no data (outside the SLA schedule, before the service existed).
-- **Error budget used**: downtime as a share of what the SLO allows, ranked, with the 100% marker.
-- **Top downtime**: services with the most downtime in the period.
-- **Services table**: SLO, SLI, uptime, downtime, error budget, incidents, MTTR and a sparkline; sortable, and each service opens its native SLA report.
+The page follows the Zabbix service tree, so it stays readable with one service or with hundreds of customers of a whitelabel provider.
 
-The page refreshes every minute.
+- **Overview**: one card per top service, that is, a service with an SLA that has no ancestor with an SLA (each customer, for example). Each card shows the SLI, the SLO and one status bar per period: no downtime, downtime within the SLO, below the SLO, or no data. Cards are sorted worst first and grouped by their parent without an SLA (e.g. the provider). With a single top service, the page opens it directly.
+- **Service**: click a card to see its SLI against the SLO, downtime, error budget and incidents, one SLI chart for the period, and its **components**: child services with an SLA, each with its own status bars. Components with children open the same way; the trail at the top goes back. A service in more than one SLA gets one tab per SLA. "SLA report" opens the native report for that service.
+
+The path is kept in the URL, so the browser's back button works and a link opens the same service. The page refreshes every minute.
 
 ## Filters
 
@@ -26,7 +23,7 @@ The page refreshes every minute.
 | Group by: Hour, Day, Week, Month, Year | — |
 | From / To | Services → SLA report (dates). Empty = last 24 hours, 30 days, 12 weeks, 12 months or 5 years, by the grouping |
 
-The filter is stored in the user profile, like the core pages.
+The filter is stored in the user profile, like the core pages, and starts collapsed.
 
 ## How the SLI is calculated
 
@@ -39,7 +36,7 @@ Everything goes through the Zabbix API with the logged-in user's session, so per
 - Follows the user's theme: Blue, Dark, Dark blue, Blue (classic), Dark (classic), High-contrast light and dark.
 - Follows the user's language. Labels that Zabbix already translates (SLA, SLO, SLI, Uptime, Downtime, Error budget…) come from the core translation; the rest of the module ships its own gettext files for the 39 languages of Zabbix 8.0. Numbers and dates use the user's locale.
 
-| Dark blue | Português (Brasil), Dark |
+| A customer, Dark blue | Português (Brasil), Dark |
 | --- | --- |
 | ![Dark blue](docs/sla-dashboard-dark-blue.png) | ![pt_BR](docs/sla-dashboard-pt-br.png) |
 
@@ -70,6 +67,7 @@ Manual install: copy the `sla_dashboard` directory to `<frontend>/modules/` (for
 ```sh
 cd tests/lab && docker compose up -d     # Zabbix 8.0 (official images) + PostgreSQL, http://localhost:8090, Admin/zabbix
 python3 tests/lab/seed.py                 # hosts, triggers, services, 3 SLAs and ~400 days of status history
+python3 tests/lab/seed_whitelabel.py      # whitelabel provider with 12 customers (--customers 40 for scale)
 python3 tests/lab/api.py module.create '{"id":"sla_dashboard","relative_path":"modules/sla_dashboard","status":1}'
 python3 tests/lab/sender.py pay-api-01 1  # opens a real problem (0 closes it)
 python3 tests/lab/parity.py               # SLI of the module vs sla.getsli

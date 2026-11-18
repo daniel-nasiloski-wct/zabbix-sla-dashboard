@@ -29,14 +29,11 @@ msgstr "Avarie în limitele SLO"
 msgid "Below SLO"
 msgstr "Sub SLO"
 
-msgid "Overall SLI"
-msgstr "SLI general"
+msgid "Incidents"
+msgstr "Incidente"
 
-msgid "Time-weighted across %1$s services"
-msgstr "Ponderat în timp pe %1$s servicii"
-
-msgid "Services meeting SLO"
-msgstr "Servicii care respectă SLO"
+msgid "%1$s services"
+msgstr "%1$s servicii"
 
 msgid "%1$s below SLO"
 msgstr "%1$s sub SLO"
@@ -44,70 +41,17 @@ msgstr "%1$s sub SLO"
 msgid "All within SLO"
 msgstr "Toate în limitele SLO"
 
-msgid "Incidents"
-msgstr "Incidente"
+msgid "%1$s with a problem now"
+msgstr "%1$s cu o problemă acum"
 
-msgid "%1$s ongoing now"
-msgstr "%1$s în desfășurare acum"
+msgid "Other services"
+msgstr "Alte servicii"
 
-msgid "None ongoing"
-msgstr "Niciunul în desfășurare"
+msgid "Components"
+msgstr "Componente"
 
-msgid "Mean time to recover"
-msgstr "Timp mediu de recuperare"
-
-msgid "MTTR, resolved incidents"
-msgstr "MTTR, incidente rezolvate"
-
-msgid "SLA compliance"
-msgstr "Conformitate SLA"
-
-msgid "%1$s services"
-msgstr "%1$s servicii"
-
-msgid "SLI trend"
-msgstr "Tendință SLI"
-
-msgid "Per SLA, time-weighted across its services; dashed line = SLO"
-msgstr "Pe SLA, ponderat în timp pe serviciile sale; linie punctată = SLO"
-
-msgid "SLI heatmap"
-msgstr "Hartă termică SLI"
-
-msgid "Each cell is one period of one service, compared with the SLO of its SLA"
-msgstr "Fiecare celulă este o perioadă a unui serviciu, comparată cu SLO-ul SLA-ului său"
-
-msgid "No downtime in the selected period."
-msgstr "Fără avarii în perioada selectată."
-
-msgid "Error budget used"
-msgstr "Buget de erori utilizat"
-
-msgid "Downtime as a share of what the SLO allows; marker = 100%"
-msgstr "Avaria ca proporție din cât permite SLO; marcaj = 100%"
-
-msgid "Top downtime"
-msgstr "Cele mai multe avarii"
-
-msgid "Services with the most downtime in the selected period"
-msgstr "Serviciile cu cele mai multe avarii în perioada selectată"
-
-#. Mean time to recover, abbreviation (table column)
-msgid "MTTR"
-msgstr "MTTR"
-
-#. table column with a sparkline
-msgid "Trend"
-msgstr "Tendință"
-
-msgid "Click a service to open its SLA report"
-msgstr "Faceți clic pe un serviciu pentru a deschide raportul SLA"
-
-msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
-msgstr "Niciun SLA activ nu corespunde filtrului. Alegeți alte SLA-uri, servicii, servere sau etichete în filtrul de mai sus."
-
-msgid "No service matches the filter."
-msgstr "Niciun serviciu nu corespunde filtrului."
+msgid "No service with an enabled SLA matches the filter."
+msgstr "Niciun serviciu cu SLA activat nu corespunde filtrului."
 
 msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
 msgstr "Prea multe perioade pentru intervalul selectat: se afișează ultimele %1$s. Grupați după o perioadă mai lungă sau alegeți un interval mai scurt."

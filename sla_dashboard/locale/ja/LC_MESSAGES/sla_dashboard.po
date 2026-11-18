@@ -29,14 +29,11 @@ msgstr "ダウンタイムはSLO内"
 msgid "Below SLO"
 msgstr "SLO未達"
 
-msgid "Overall SLI"
-msgstr "全体SLI"
+msgid "Incidents"
+msgstr "インシデント"
 
-msgid "Time-weighted across %1$s services"
-msgstr "%1$s件のサービスの時間加重"
-
-msgid "Services meeting SLO"
-msgstr "SLOを満たすサービス"
+msgid "%1$s services"
+msgstr "%1$s件のサービス"
 
 msgid "%1$s below SLO"
 msgstr "%1$s件がSLO未達"
@@ -44,70 +41,17 @@ msgstr "%1$s件がSLO未達"
 msgid "All within SLO"
 msgstr "すべてSLO内"
 
-msgid "Incidents"
-msgstr "インシデント"
+msgid "%1$s with a problem now"
+msgstr "%1$s件が現在障害中"
 
-msgid "%1$s ongoing now"
-msgstr "%1$s件が継続中"
+msgid "Other services"
+msgstr "その他のサービス"
 
-msgid "None ongoing"
-msgstr "継続中なし"
+msgid "Components"
+msgstr "コンポーネント"
 
-msgid "Mean time to recover"
-msgstr "平均復旧時間"
-
-msgid "MTTR, resolved incidents"
-msgstr "MTTR、解決済みインシデント"
-
-msgid "SLA compliance"
-msgstr "SLA準拠"
-
-msgid "%1$s services"
-msgstr "%1$s件のサービス"
-
-msgid "SLI trend"
-msgstr "SLIの推移"
-
-msgid "Per SLA, time-weighted across its services; dashed line = SLO"
-msgstr "SLAごと、サービス全体の時間加重。破線 = SLO"
-
-msgid "SLI heatmap"
-msgstr "SLIヒートマップ"
-
-msgid "Each cell is one period of one service, compared with the SLO of its SLA"
-msgstr "各セルは1サービスの1期間で、そのSLAのSLOと比較されます"
-
-msgid "No downtime in the selected period."
-msgstr "選択期間にダウンタイムはありません。"
-
-msgid "Error budget used"
-msgstr "エラーバジェット使用率"
-
-msgid "Downtime as a share of what the SLO allows; marker = 100%"
-msgstr "SLOが許容するダウンタイムに対する割合。マーカー = 100%"
-
-msgid "Top downtime"
-msgstr "ダウンタイム上位"
-
-msgid "Services with the most downtime in the selected period"
-msgstr "選択期間でダウンタイムが最も多いサービス"
-
-#. Mean time to recover, abbreviation (table column)
-msgid "MTTR"
-msgstr "MTTR"
-
-#. table column with a sparkline
-msgid "Trend"
-msgstr "推移"
-
-msgid "Click a service to open its SLA report"
-msgstr "サービスをクリックするとSLAレポートを開きます"
-
-msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
-msgstr "フィルターに一致する有効なSLAがありません。上のフィルターで別のSLA、サービス、ホスト、タグを選択してください。"
-
-msgid "No service matches the filter."
-msgstr "フィルターに一致するサービスがありません。"
+msgid "No service with an enabled SLA matches the filter."
+msgstr "フィルターに一致する、SLAが有効なサービスはありません。"
 
 msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
 msgstr "選択範囲の期間が多すぎます: 最新の%1$s件を表示しています。より長い期間でグループ化するか、短い範囲を選択してください。"

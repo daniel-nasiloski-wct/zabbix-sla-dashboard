@@ -169,7 +169,7 @@ def main():
             alarm_id += 1
             rows.append(f'({alarm_id},{svc_ids[name]},{clock},{value})')
     sql = [f'UPDATE services SET created_at={START} WHERE serviceid IN ({",".join(svc_ids.values())});',
-           f'DELETE FROM service_alarms WHERE servicealarmid >= 900000000;']
+           f'DELETE FROM service_alarms WHERE servicealarmid BETWEEN 900000000 AND 949999999;']
     for i in range(0, len(rows), 500):
         sql.append('INSERT INTO service_alarms (servicealarmid,serviceid,clock,value) VALUES '
                    + ','.join(rows[i:i + 500]) + ';')

@@ -1,8 +1,12 @@
 /*
- * SLA dashboard (Services → SLA dashboard) — desenha os gráficos a partir de window.SLA_DASHBOARD.
- * SVG e DOM puros, sem bibliotecas. Cores pelo tema do Zabbix (CSS em sla-dashboard.css); textos pelo
- * dicionário traduzido no PHP (o CI18n lê os textos de t() direto deste arquivo, então todo texto
- * visível passa por t() com aspas simples).
+ * SLA dashboard (Services → SLA dashboard). Navega pela árvore de serviços do Zabbix:
+ *  - visão geral: um card por serviço de topo (o serviço com SLA que não tem ancestral com SLA, ex. cada
+ *    cliente de um provedor whitelabel), agrupados pelo pai sem SLA e ordenados do pior para o melhor;
+ *  - clicar abre o serviço: SLI × SLO no período, um gráfico, e os componentes (filhos com SLA), que
+ *    também podem ser abertos. O caminho fica na URL (#/id/id), então o voltar do navegador funciona.
+ * SVG e DOM puros. Cores pelo tema do Zabbix (sla-dashboard.css). Textos pelo dicionário traduzido no
+ * PHP: o CI18n lê os textos de t() direto deste arquivo, então todo texto visível passa por t() com
+ * aspas simples.
  */
 
 const boot = window.SLA_DASHBOARD || {};
@@ -16,22 +20,20 @@ function t(text, ...args) {
 }
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
-
 const SVG = 'http://www.w3.org/2000/svg';
 const PERIOD = {HOUR: 0, DAY: 1, WEEK: 2, MONTH: 3, YEAR: 4};
 
 // ---------------------------------------------------------------- formatação
 
-let numFmtCache = {};
+const numFmt = {};
 function num(v, digits = 2) {
-	const key = digits;
-	numFmtCache[key] ||= new Intl.NumberFormat(LANG, {minimumFractionDigits: digits, maximumFractionDigits: digits});
-	return numFmtCache[key].format(v);
+	numFmt[digits] ||= new Intl.NumberFormat(LANG, {minimumFractionDigits: digits, maximumFractionDigits: digits});
+	return numFmt[digits].format(v);
 }
 
 function pct(v) {
 	if (v === null || v === undefined) return '—';
-	// Mais casas quando perto de 100%, senão 99,95% vira 100,00%.
+	// Mais casas perto de 100%, senão 99,95% vira 100,00%.
 	const d = v >= 99.99 && v < 100 ? 4 : v >= 99 && v < 100 ? 3 : 2;
 	return `${num(v, d)}%`;
 }
@@ -88,14 +90,16 @@ function rangeLabel(data) {
 	return `${f.format(new Date(data.buckets[0].from * 1000))} – ${f.format(new Date((Math.min(data.to, data.buckets.at(-1).to) - 1) * 1000))}`;
 }
 
-// ---------------------------------------------------------------- estado/cores
+// ---------------------------------------------------------------- estado
 
-/** Estado de uma medida contra o SLO: ok (sem parada), met (parou mas cumpriu), breach (abaixo do SLO). */
+/** ok = sem parada, met = parou mas cumpriu o SLO, breach = abaixo do SLO, none = sem dados. */
 function stateOf(sli, slo, down) {
 	if (sli === null || sli === undefined) return 'none';
 	if (sli < slo) return 'breach';
 	return down > 0 ? 'met' : 'ok';
 }
+
+const RANK = {breach: 0, met: 1, ok: 2, none: 3};
 
 const STATE_LABEL = () => ({
 	ok: t('No downtime'),
@@ -104,8 +108,77 @@ const STATE_LABEL = () => ({
 	none: t('No data')
 });
 
-function seriesVar(i) {
-	return `var(--sd-series-${(i % 8) + 1})`;
+// ---------------------------------------------------------------- modelo (árvore + linhas)
+
+function model(data) {
+	const slas = Object.fromEntries(data.slas.map((s) => [s.slaid, s]));
+	const rowsBy = new Map();
+	for (const r of data.rows) {
+		const sla = slas[r.slaid];
+		const row = {...r, slo: sla.slo, slaName: sla.name, state: stateOf(r.sli, sla.slo, r.down)};
+		if (!rowsBy.has(r.serviceid)) rowsBy.set(r.serviceid, []);
+		rowsBy.get(r.serviceid).push(row);
+	}
+	const nodes = data.nodes || {};
+	const name = (id) => (nodes[id] ? nodes[id][0] : data.services[id]?.name ?? id);
+	const problem = (id) => (nodes[id] ? nodes[id][1] >= 0 : false);
+	const parents = (id) => (nodes[id] ? nodes[id][2] : []).filter((p) => nodes[p]);
+	const children = (id) => (nodes[id] ? nodes[id][3] : []).filter((c) => nodes[c]);
+	const measured = (id) => rowsBy.has(id);
+	const margin = (r) => (r.sli ?? 101) - r.slo;
+
+	// Linha principal de um serviço: a da SLA pedida, senão a de pior margem até o SLO.
+	const primary = (id, slaid = null) => {
+		const rows = rowsBy.get(id) || [];
+		if (slaid) {
+			const same = rows.find((r) => r.slaid === slaid);
+			if (same) return same;
+		}
+		return [...rows].sort((a, b) => (RANK[a.state] - RANK[b.state]) || margin(a) - margin(b))[0] || null;
+	};
+
+	const hasMeasuredAncestor = (id) => {
+		const seen = new Set();
+		const stack = [...parents(id)];
+		while (stack.length) {
+			const p = stack.pop();
+			if (seen.has(p)) continue;
+			seen.add(p);
+			if (measured(p)) return true;
+			stack.push(...parents(p));
+		}
+		return false;
+	};
+
+	// Filhos com SLA mais próximos (desce pelos nós sem SLA).
+	const components = (id) => {
+		const out = [];
+		const seen = new Set([id]);
+		const queue = [...children(id)];
+		while (queue.length) {
+			const c = queue.shift();
+			if (seen.has(c)) continue;
+			seen.add(c);
+			if (measured(c)) out.push(c);
+			else queue.push(...children(c));
+		}
+		return out;
+	};
+
+	const top = [...rowsBy.keys()].filter((id) => !hasMeasuredAncestor(id));
+
+	// Grupo do card na visão geral: o pai sem SLA (ex. "Whitelabel Hosting").
+	const groupOf = (id) => {
+		const p = parents(id).find((x) => !measured(x));
+		return p ? name(p) : '';
+	};
+
+	const byWorst = (slaid = null) => (a, b) => {
+		const ra = primary(a, slaid), rb = primary(b, slaid);
+		return (RANK[ra.state] - RANK[rb.state]) || (margin(ra) - margin(rb)) || name(a).localeCompare(name(b), LANG);
+	};
+
+	return {rowsBy, name, problem, measured, primary, components, top, groupOf, byWorst};
 }
 
 // ---------------------------------------------------------------- DOM helpers
@@ -125,15 +198,6 @@ function svg(tag, attrs = {}) {
 		if (v !== undefined && v !== null) node.setAttribute(k, v);
 	}
 	return node;
-}
-
-function panel(title, subtitle = '', cls = '') {
-	const p = el('div', {class: `sd-panel ${cls}`});
-	p.appendChild(el('div', {class: 'sd-panel-head'},
-		`<div class="sd-panel-title">${esc(title)}</div>${subtitle ? `<div class="sd-panel-sub">${esc(subtitle)}</div>` : ''}`));
-	const body = el('div', {class: 'sd-panel-body'});
-	p.appendChild(body);
-	return [p, body];
 }
 
 // ---------------------------------------------------------------- tooltip
@@ -158,469 +222,276 @@ function hideTip() {
 	tip.classList.remove('is-visible');
 }
 
-function tipRow(label, value, swatch = '') {
-	return `<div class="sd-tip-row">${swatch ? `<span class="sd-swatch" style="background:${swatch}"></span>` : ''}<span class="sd-tip-label">${esc(label)}</span><span class="sd-tip-value">${esc(value)}</span></div>`;
+function tipRow(label, value) {
+	return `<div class="sd-tip-row"><span class="sd-tip-label">${esc(label)}</span><span class="sd-tip-value">${esc(value)}</span></div>`;
 }
 
-// ---------------------------------------------------------------- KPIs
+function tipState(state) {
+	return `<div class="sd-tip-state is-${state}">${esc(STATE_LABEL()[state])}</div>`;
+}
 
-function kpis(data, rows) {
-	const wrap = el('div', {class: 'sd-kpis'});
-	let up = 0, down = 0, incidents = 0, mttrSum = 0, mttrN = 0, met = 0, measured = 0, ongoing = 0;
-	for (const r of rows) {
-		up += r.up; down += r.down; incidents += r.incidents;
-		if (r.mttr !== null) { mttrSum += r.mttr * r.incidents; mttrN += r.incidents; }
-		if (r.sli !== null) { measured++; if (r.sli >= r.slo) met++; }
-		if (r.ongoing) ongoing++;
-	}
-	const sli = up + down > 0 ? up / (up + down) * 100 : null;
-	const minSlo = Math.min(...data.slas.map((s) => s.slo));
-	const sliState = sli === null ? 'none' : (met === measured ? 'ok' : (sli >= minSlo ? 'met' : 'breach'));
+// ---------------------------------------------------------------- faixa de status (estilo status page)
 
-	const tiles = [
-		{label: t('Overall SLI'), value: pct(sli), state: sliState,
-			note: t('Time-weighted across %1$s services', measured)},
-		{label: t('Services meeting SLO'), value: measured ? `${met} / ${measured}` : '—',
-			state: measured === 0 ? 'none' : met === measured ? 'ok' : 'breach', bar: measured ? met / measured : null,
-			note: measured - met > 0 ? t('%1$s below SLO', measured - met) : t('All within SLO')},
-		{label: t('Downtime'), value: duration(down), state: down > 0 ? 'met' : 'ok',
-			note: rangeLabel(data)},
-		{label: t('Incidents'), value: String(incidents), state: ongoing ? 'breach' : incidents ? 'met' : 'ok',
-			note: ongoing ? t('%1$s ongoing now', ongoing) : t('None ongoing')},
-		{label: t('Mean time to recover'), value: mttrN ? duration(mttrSum / mttrN) : '—', state: 'none',
-			note: t('MTTR, resolved incidents')}
-	];
-
-	for (const k of tiles) {
-		const tile = el('div', {class: `sd-kpi is-${k.state}`});
-		tile.innerHTML = `
-			<div class="sd-kpi-label">${esc(k.label)}</div>
-			<div class="sd-kpi-value">${esc(k.value)}</div>
-			${k.bar !== undefined && k.bar !== null ? `<div class="sd-kpi-bar"><span style="width:${(k.bar * 100).toFixed(1)}%"></span></div>` : ''}
-			<div class="sd-kpi-note">${esc(k.note)}</div>`;
-		wrap.appendChild(tile);
+/**
+ * Uma barrinha por período, na cor do estado. Com períodos demais para o espaço, junta vizinhos e
+ * fica com o pior estado do grupo.
+ */
+function strip(data, row, maxSlots, interactive) {
+	const n = row.cells.length;
+	const per = Math.max(1, Math.ceil(n / maxSlots));
+	const wrap = el('div', {class: 'sd-strip', 'aria-hidden': interactive ? null : 'true'});
+	for (let i = 0; i < n; i += per) {
+		const end = Math.min(n, i + per);
+		let state = 'none', down = 0, inc = 0;
+		for (let j = i; j < end; j++) {
+			const c = row.cells[j];
+			if (!c) continue;
+			const s = stateOf(c[0], row.slo, c[1]);
+			if (state === 'none' || RANK[s] < RANK[state]) state = s;
+			down += c[1];
+			inc += c[2];
+		}
+		const bar = el('span', {class: `sd-strip-bar is-${state}`});
+		if (interactive) {
+			bar.addEventListener('mousemove', (ev) => {
+				const label = end - i === 1 ? bucketLabel(data, data.buckets[i], true)
+					: `${bucketLabel(data, data.buckets[i], true)} – ${bucketLabel(data, data.buckets[end - 1], true)}`;
+				let html = `<div class="sd-tip-title">${esc(label)}</div>`;
+				if (end - i === 1 && row.cells[i]) html += tipRow(t('SLI'), pct(row.cells[i][0]));
+				html += tipRow(t('Downtime'), state === 'none' ? '—' : duration(down));
+				if (inc) html += tipRow(t('Incidents'), String(inc));
+				showTip(html + tipState(state), ev);
+			});
+			bar.addEventListener('mouseleave', hideTip);
+		}
+		wrap.appendChild(bar);
 	}
 	return wrap;
 }
 
-// ---------------------------------------------------------------- SLA cards (compliance)
+// ---------------------------------------------------------------- visão geral
 
-function slaCards(data, rows) {
-	const [p, body] = panel(t('SLA compliance'), rangeLabel(data), 'sd-span-1');
-	const list = el('div', {class: 'sd-sla-list'});
-	data.slas.forEach((sla, i) => {
-		const rs = rows.filter((r) => r.slaid === sla.slaid);
-		let up = 0, down = 0, breach = 0;
-		for (const r of rs) { up += r.up; down += r.down; if (r.sli !== null && r.sli < sla.slo) breach++; }
-		const sli = up + down > 0 ? up / (up + down) * 100 : null;
-		const state = stateOf(sli, sla.slo, down);
-		// Escala da barra: do "SLO - margem" até 100%, senão tudo parece cheio.
-		const floor = Math.max(0, sla.slo - Math.max(1, (100 - sla.slo) * 4));
-		const pos = (v) => Math.max(0, Math.min(100, (v - floor) / (100 - floor) * 100));
-		const item = el('div', {class: `sd-sla is-${state}`});
-		const href = `zabbix.php?action=slareport.list&filter_slaid=${encodeURIComponent(sla.slaid)}&filter_set=1`;
-		item.innerHTML = `
-			<div class="sd-sla-top">
-				<span class="sd-swatch" style="background:${seriesVar(i)}"></span>
-				<a class="sd-sla-name" href="${href}">${esc(sla.name)}</a>
-				<span class="sd-chip is-${state}">${esc(STATE_LABEL()[state])}</span>
-			</div>
-			<div class="sd-sla-nums">
-				<span class="sd-sla-sli">${esc(pct(sli))}</span>
-				<span class="sd-muted">${esc(t('SLO'))} ${esc(pct(sla.slo))}</span>
-			</div>
-			<div class="sd-gauge" aria-hidden="true">
-				<span class="sd-gauge-fill" style="width:${sli === null ? 0 : pos(sli).toFixed(2)}%"></span>
-				<span class="sd-gauge-slo" style="left:${pos(sla.slo).toFixed(2)}%"></span>
-			</div>
-			<div class="sd-sla-meta sd-muted">${esc(t('%1$s services', rs.length))} · ${esc(breach ? t('%1$s below SLO', breach) : t('All within SLO'))}${sla.schedule ? ` · ${esc(t('Custom schedule'))}` : ''}${sla.excluded.length ? ` · ${esc(t('Excluded downtimes'))}: ${sla.excluded.length}` : ''}</div>`;
-		list.appendChild(item);
-	});
-	body.appendChild(list);
-	return p;
+function overview(root, data, m, open) {
+	const ids = m.top;
+	const below = ids.filter((id) => m.primary(id).state === 'breach').length;
+	const problems = ids.filter((id) => m.problem(id)).length;
+
+	const head = el('div', {class: 'sd-head'});
+	head.innerHTML = `
+		<div class="sd-summary">
+			<span>${esc(t('%1$s services', ids.length))}</span>
+			${below ? `<span class="sd-summary-bad">${esc(t('%1$s below SLO', below))}</span>` : `<span class="sd-summary-ok">${esc(t('All within SLO'))}</span>`}
+			${problems ? `<span class="sd-summary-bad">${esc(t('%1$s with a problem now', problems))}</span>` : ''}
+			<span class="sd-muted">${esc(rangeLabel(data))}</span>
+		</div>`;
+	root.appendChild(head);
+
+	const groups = new Map();
+	for (const id of ids) {
+		const g = m.groupOf(id);
+		if (!groups.has(g)) groups.set(g, []);
+		groups.get(g).push(id);
+	}
+	const names = [...groups.keys()].sort((a, b) => (a === '') - (b === '') || a.localeCompare(b, LANG));
+	const showHeadings = names.length > 1 || names[0] !== '';
+
+	for (const g of names) {
+		if (showHeadings) {
+			root.appendChild(el('div', {class: 'sd-group'}, esc(g || t('Other services'))));
+		}
+		const grid = el('div', {class: 'sd-cards'});
+		groups.get(g).sort(m.byWorst()).forEach((id, i) => {
+			const row = m.primary(id);
+			const card = el('button', {type: 'button', class: `sd-card is-${row.state}`,
+				style: `animation-delay:${(Math.min(i, 20) * 0.02).toFixed(2)}s`});
+			card.innerHTML = `
+				<span class="sd-card-name">${m.problem(id) ? `<span class="sd-live" title="${esc(t('Problem'))}"></span>` : ''}${esc(m.name(id))}</span>
+				<span class="sd-card-sli">${esc(pct(row.sli))}</span>
+				<span class="sd-card-slo">${esc(t('SLO'))} ${esc(pct(row.slo))}</span>`;
+			card.appendChild(strip(data, row, 40, false));
+			card.addEventListener('click', () => open([id]));
+			grid.appendChild(card);
+		});
+		root.appendChild(grid);
+	}
 }
 
-// ---------------------------------------------------------------- linha do SLI
+// ---------------------------------------------------------------- serviço
 
-function niceMin(minVal) {
-	const gap = 100 - minVal;
-	if (gap <= 0) return 99;
-	const steps = [0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 25, 50, 100];
-	const step = steps.find((s) => s * 4 >= gap * 1.15) || 100;
-	return Math.max(0, 100 - step * 4);
-}
-
-function trendChart(data) {
-	const [p, body] = panel(t('SLI trend'), t('Per SLA, time-weighted across its services; dashed line = SLO'), 'sd-span-2');
-	const legend = el('div', {class: 'sd-legend'});
-	data.slas.forEach((sla, i) => {
-		legend.appendChild(el('span', {class: 'sd-legend-item'},
-			`<span class="sd-legend-line" style="background:${seriesVar(i)}"></span>${esc(sla.name)}`));
-	});
-	if (data.slas.length > 1) body.appendChild(legend);
-
+function trend(data, row) {
 	const holder = el('div', {class: 'sd-chart'});
-	body.appendChild(holder);
-
 	const draw = () => {
 		holder.innerHTML = '';
 		const W = Math.max(280, holder.clientWidth);
-		const H = 240;
-		const m = {l: 58, r: 16, t: 12, b: 28};
+		const H = 200;
+		const mg = {l: 58, r: 12, t: 14, b: 26};
 		const n = data.buckets.length;
-		let lo = 100;
-		data.slas.forEach((s) => {
-			lo = Math.min(lo, s.slo);
-			s.series.forEach((v) => { if (v !== null) lo = Math.min(lo, v); });
-		});
-		const y0 = niceMin(lo);
-		const x = (i) => m.l + (n <= 1 ? (W - m.l - m.r) / 2 : i * (W - m.l - m.r) / (n - 1));
-		const y = (v) => m.t + (100 - v) / (100 - y0) * (H - m.t - m.b);
+		const vals = row.cells.map((c) => (c ? c[0] : null));
+		let lo = row.slo;
+		vals.forEach((v) => { if (v !== null) lo = Math.min(lo, v); });
+		const gap = Math.max(100 - lo, 0.01);
+		const steps = [0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 25];
+		const y0 = Math.max(0, 100 - (steps.find((s) => s * 4 >= gap * 1.15) || 25) * 4);
+		const x = (i) => mg.l + (n <= 1 ? (W - mg.l - mg.r) / 2 : i * (W - mg.l - mg.r) / (n - 1));
+		const y = (v) => mg.t + (100 - v) / (100 - y0) * (H - mg.t - mg.b);
+		const root = svg('svg', {width: W, height: H, viewBox: `0 0 ${W} ${H}`, class: 'sd-svg', role: 'img', 'aria-label': t('SLI')});
 
-		const root = svg('svg', {width: W, height: H, viewBox: `0 0 ${W} ${H}`, class: 'sd-svg', role: 'img',
-			'aria-label': t('SLI trend')});
-
-		// grade + eixo Y
 		for (let k = 0; k <= 4; k++) {
 			const v = y0 + (100 - y0) * k / 4;
-			root.appendChild(svg('line', {x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), class: 'sd-grid'}));
-			const lbl = svg('text', {x: m.l - 8, y: y(v) + 4, class: 'sd-axis', 'text-anchor': 'end'});
+			root.appendChild(svg('line', {x1: mg.l, x2: W - mg.r, y1: y(v), y2: y(v), class: 'sd-gridline'}));
+			const lbl = svg('text', {x: mg.l - 8, y: y(v) + 4, class: 'sd-axis', 'text-anchor': 'end'});
 			lbl.textContent = `${num(v, 100 - y0 < 1 ? 2 : 100 - y0 < 10 ? 1 : 0)}%`;
 			root.appendChild(lbl);
 		}
-		// eixo X: ~6 rótulos
-		const every = Math.max(1, Math.ceil(n / Math.max(2, Math.floor((W - m.l - m.r) / 90))));
+		const every = Math.max(1, Math.ceil(n / Math.max(2, Math.floor((W - mg.l - mg.r) / 90))));
 		for (let i = 0; i < n; i += every) {
-			const lbl = svg('text', {x: x(i), y: H - 8, class: 'sd-axis', 'text-anchor': 'middle'});
+			const lbl = svg('text', {x: x(i), y: H - 6, class: 'sd-axis', 'text-anchor': 'middle'});
 			lbl.textContent = bucketLabel(data, data.buckets[i]);
 			root.appendChild(lbl);
 		}
 
-		data.slas.forEach((sla, si) => {
-			const color = seriesVar(si);
-			root.appendChild(svg('line', {x1: m.l, x2: W - m.r, y1: y(sla.slo), y2: y(sla.slo), class: 'sd-slo-line',
-				style: `stroke:${color}`}));
-			let d = '';
-			let pen = false;
-			sla.series.forEach((v, i) => {
-				if (v === null) { pen = false; return; }
-				d += `${pen ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`;
-				pen = true;
-			});
-			root.appendChild(svg('path', {d, class: 'sd-line', style: `stroke:${color}`}));
-			// pontos só abaixo do SLO (o que importa ver)
-			sla.series.forEach((v, i) => {
-				if (v !== null && v < sla.slo) {
-					root.appendChild(svg('circle', {cx: x(i), cy: y(v), r: 4, class: 'sd-dot-breach', style: `fill:${color}`}));
-				}
-			});
+		// área sob a linha, SLO tracejado, linha do SLI e pontos abaixo do SLO
+		const pts = vals.map((v, i) => (v === null ? null : [x(i), y(v)]));
+		let d = '';
+		let pen = false;
+		pts.forEach((p) => {
+			if (!p) { pen = false; return; }
+			d += `${pen ? 'L' : 'M'}${p[0].toFixed(1)},${p[1].toFixed(1)}`;
+			pen = true;
+		});
+		const present = pts.filter(Boolean);
+		if (present.length) {
+			const area = `M${present.map((p) => `${p[0].toFixed(1)},${p[1].toFixed(1)}`).join('L')}`
+				+ `L${present.at(-1)[0].toFixed(1)},${y(y0)}L${present[0][0].toFixed(1)},${y(y0)}Z`;
+			root.appendChild(svg('path', {d: area, class: 'sd-area'}));
+		}
+		root.appendChild(svg('line', {x1: mg.l, x2: W - mg.r, y1: y(row.slo), y2: y(row.slo), class: 'sd-slo-line'}));
+		// rótulo logo abaixo da linha, à esquerda (em cima ele bate na linha dos 100%)
+		const sloLbl = svg('text', {x: mg.l + 6, y: y(row.slo) + 14, class: 'sd-slo-label'});
+		sloLbl.textContent = `${t('SLO')} ${pct(row.slo)}`;
+		root.appendChild(sloLbl);
+		root.appendChild(svg('path', {d, class: 'sd-line'}));
+		vals.forEach((v, i) => {
+			if (v !== null && v < row.slo) root.appendChild(svg('circle', {cx: x(i), cy: y(v), r: 4, class: 'sd-dot-breach'}));
 		});
 
-		// crosshair + tooltip
-		const cross = svg('line', {y1: m.t, y2: H - m.b, class: 'sd-cross', visibility: 'hidden'});
+		const cross = svg('line', {y1: mg.t, y2: H - mg.b, class: 'sd-cross', visibility: 'hidden'});
 		root.appendChild(cross);
-		const hit = svg('rect', {x: m.l, y: m.t, width: W - m.l - m.r, height: H - m.t - m.b, class: 'sd-hit'});
+		const hit = svg('rect', {x: mg.l, y: mg.t, width: W - mg.l - mg.r, height: H - mg.t - mg.b, class: 'sd-hit'});
 		root.appendChild(hit);
 		hit.addEventListener('mousemove', (ev) => {
-			const box = root.getBoundingClientRect();
-			const px = ev.clientX - box.left;
-			const i = n <= 1 ? 0 : Math.max(0, Math.min(n - 1, Math.round((px - m.l) / ((W - m.l - m.r) / (n - 1)))));
+			const px = ev.clientX - root.getBoundingClientRect().left;
+			const i = n <= 1 ? 0 : Math.max(0, Math.min(n - 1, Math.round((px - mg.l) / ((W - mg.l - mg.r) / (n - 1)))));
 			cross.setAttribute('x1', x(i));
 			cross.setAttribute('x2', x(i));
 			cross.setAttribute('visibility', 'visible');
-			let html = `<div class="sd-tip-title">${esc(bucketLabel(data, data.buckets[i], true))}</div>`;
-			data.slas.forEach((sla, si) => {
-				const v = sla.series[i];
-				html += tipRow(sla.name, `${pct(v)}${v !== null && v < sla.slo ? ' ▼' : ''}`, seriesVar(si));
-			});
-			showTip(html, ev);
+			const c = row.cells[i];
+			showTip(`<div class="sd-tip-title">${esc(bucketLabel(data, data.buckets[i], true))}</div>`
+				+ tipRow(t('SLI'), pct(c ? c[0] : null)) + tipRow(t('Downtime'), c ? duration(c[1]) : '—')
+				+ (c && c[2] ? tipRow(t('Incidents'), String(c[2])) : '')
+				+ tipState(c ? stateOf(c[0], row.slo, c[1]) : 'none'), ev);
 		});
 		hit.addEventListener('mouseleave', () => { cross.setAttribute('visibility', 'hidden'); hideTip(); });
-
 		holder.appendChild(root);
 	};
-	return [p, draw];
+	return [holder, draw];
 }
 
-// ---------------------------------------------------------------- heatmap
-
-function heatmap(data, rows, svcName) {
-	const [p, body] = panel(t('SLI heatmap'), t('Each cell is one period of one service, compared with the SLO of its SLA'), 'sd-span-3');
-	const legend = el('div', {class: 'sd-legend'});
-	for (const s of ['ok', 'met', 'breach', 'none']) {
-		legend.appendChild(el('span', {class: 'sd-legend-item'}, `<span class="sd-cell-swatch is-${s}"></span>${esc(STATE_LABEL()[s])}`));
+function crumbs(root, m, path, open) {
+	const nav = el('div', {class: 'sd-crumbs'});
+	const trail = [];
+	if (m.top.length > 1) trail.push([t('All services'), []]);
+	path.forEach((p, i) => trail.push([m.name(p), path.slice(0, i + 1)]));
+	if (trail.length > 1) {
+		const back = el('button', {type: 'button', class: 'sd-back', title: t('Back'), 'aria-label': t('Back')}, '‹');
+		back.addEventListener('click', () => open(trail.at(-2)[1]));
+		nav.appendChild(back);
 	}
-	body.appendChild(legend);
-
-	const holder = el('div', {class: 'sd-heat'});
-	body.appendChild(holder);
-	const slaById = Object.fromEntries(data.slas.map((s, i) => [s.slaid, {...s, index: i}]));
-
-	const draw = () => {
-		holder.innerHTML = '';
-		const n = data.buckets.length;
-		const labelW = Math.min(300, Math.max(160, holder.clientWidth * 0.24));
-		const avail = holder.clientWidth - labelW - 8;
-		const gap = n > 120 ? 1 : 2;
-		const cw = Math.max(6, Math.min(36, Math.floor(avail / n) - gap));
-		const ch = 20;
-		const W = labelW + n * (cw + gap) + 8;
-		const H = 22 + rows.length * (ch + 4);
-		const root = svg('svg', {width: W, height: H, class: 'sd-svg', role: 'img', 'aria-label': t('SLI heatmap')});
-
-		const every = Math.max(1, Math.ceil(70 / (cw + gap)));
-		for (let i = 0; i < n; i += every) {
-			const lbl = svg('text', {x: labelW + i * (cw + gap), y: 12, class: 'sd-axis'});
-			lbl.textContent = bucketLabel(data, data.buckets[i]);
-			root.appendChild(lbl);
+	trail.forEach(([label, target], i) => {
+		if (i) nav.appendChild(el('span', {class: 'sd-crumb-sep'}, '›'));
+		if (i === trail.length - 1) {
+			nav.appendChild(el('span', {class: 'sd-crumb is-current'}, esc(label)));
 		}
-
-		rows.forEach((r, ri) => {
-			const yy = 22 + ri * (ch + 4);
-			const sla = slaById[r.slaid];
-			const name = svg('text', {x: 0, y: yy + 14, class: 'sd-row-label'});
-			name.textContent = svcName(r.serviceid);
-			const sub = svg('tspan', {class: 'sd-row-sub', dx: 6});
-			sub.textContent = data.slas.length > 1 ? sla.name : '';
-			name.appendChild(sub);
-			root.appendChild(name);
-			// corta o rótulo comprido
-			const clip = svg('clipPath', {id: `sd-clip-${ri}`});
-			clip.appendChild(svg('rect', {x: 0, y: yy, width: labelW - 10, height: ch}));
-			root.appendChild(clip);
-			name.setAttribute('clip-path', `url(#sd-clip-${ri})`);
-
-			r.cells.forEach((c, i) => {
-				const state = c === null ? 'none' : stateOf(c[0], r.slo, c[1]);
-				const rect = svg('rect', {x: labelW + i * (cw + gap), y: yy, width: cw, height: ch, rx: Math.min(3, cw / 3),
-					class: `sd-cell is-${state}`});
-				rect.addEventListener('mousemove', (ev) => {
-					let html = `<div class="sd-tip-title">${esc(svcName(r.serviceid))}</div>
-						<div class="sd-tip-sub">${esc(sla.name)} · ${esc(bucketLabel(data, data.buckets[i], true))}</div>`;
-					html += tipRow(t('SLI'), pct(c ? c[0] : null));
-					html += tipRow(t('SLO'), pct(r.slo));
-					html += tipRow(t('Downtime'), c ? duration(c[1]) : '—');
-					if (c && c[2]) html += tipRow(t('Incidents'), String(c[2]));
-					html += `<div class="sd-tip-state is-${state}">${esc(STATE_LABEL()[state])}</div>`;
-					showTip(html, ev);
-				});
-				rect.addEventListener('mouseleave', hideTip);
-				root.appendChild(rect);
-			});
-		});
-		holder.appendChild(root);
-	};
-	return [p, draw];
-}
-
-// ---------------------------------------------------------------- barras ranqueadas
-
-function rankedBars(title, subtitle, items, cls) {
-	const [p, body] = panel(title, subtitle, cls);
-	if (!items.length) {
-		body.appendChild(el('div', {class: 'sd-empty-small'}, esc(t('No downtime in the selected period.'))));
-		return p;
-	}
-	const list = el('div', {class: 'sd-bars'});
-	for (const it of items) {
-		const row = el('div', {class: 'sd-bar-row'});
-		row.innerHTML = `
-			<div class="sd-bar-label"><span class="sd-bar-name">${esc(it.label)}</span><span class="sd-bar-sub">${esc(it.sub || '')}</span></div>
-			<div class="sd-bar-track">
-				<span class="sd-bar-fill is-${it.state}" style="width:${Math.max(1.5, Math.min(100, it.ratio * 100)).toFixed(1)}%"></span>
-				${it.marker !== undefined ? `<span class="sd-bar-marker" style="left:${it.marker.toFixed(1)}%"></span>` : ''}
-			</div>
-			<div class="sd-bar-value">${esc(it.value)}</div>`;
-		row.addEventListener('mousemove', (ev) => showTip(it.tip, ev));
-		row.addEventListener('mouseleave', hideTip);
-		list.appendChild(row);
-	}
-	body.appendChild(list);
-	return p;
-}
-
-function budgetPanel(data, rows, svcName, slaName) {
-	// Consumo do orçamento de erro: parada / parada permitida pelo SLO no tempo medido.
-	const items = rows
-		.filter((r) => r.sli !== null && r.slo < 100)
-		.map((r) => {
-			const allowed = (r.up + r.down) * (1 - r.slo / 100);
-			const used = allowed > 0 ? r.down / allowed : 0;
-			return {r, used};
-		})
-		.filter((x) => x.used > 0)
-		.sort((a, b) => b.used - a.used)
-		.slice(0, 10)
-		.map(({r, used}) => ({
-			label: svcName(r.serviceid),
-			sub: data.slas.length > 1 ? slaName(r.slaid) : '',
-			// a barra vai até 200%; o marcador fica nos 100% (o limite do SLO)
-			ratio: Math.min(used, 2) / 2,
-			marker: 50,
-			state: used > 1 ? 'breach' : used >= 0.75 ? 'warn' : 'met',
-			value: `${num(used * 100, 0)}%`,
-			tip: `<div class="sd-tip-title">${esc(svcName(r.serviceid))}</div><div class="sd-tip-sub">${esc(slaName(r.slaid))}</div>`
-				+ tipRow(t('Error budget used'), `${num(used * 100, 1)}%`)
-				+ tipRow(t('Error budget'), duration(r.budget))
-				+ tipRow(t('Downtime'), duration(r.down))
-				+ tipRow(t('SLI'), pct(r.sli)) + tipRow(t('SLO'), pct(r.slo))
-		}));
-	return rankedBars(t('Error budget used'), t('Downtime as a share of what the SLO allows; marker = 100%'), items, 'sd-span-half');
-}
-
-function downtimePanel(data, rows, svcName, slaName) {
-	// Um serviço em várias SLAs aparece uma vez (mesma parada); fica o maior valor.
-	const bySvc = new Map();
-	for (const r of rows) {
-		const cur = bySvc.get(r.serviceid);
-		if (!cur || r.down > cur.down) bySvc.set(r.serviceid, r);
-	}
-	const list = [...bySvc.values()].filter((r) => r.down > 0).sort((a, b) => b.down - a.down).slice(0, 10);
-	const max = list.length ? list[0].down : 1;
-	const items = list.map((r) => ({
-		label: svcName(r.serviceid),
-		sub: `${t('Incidents')}: ${r.incidents}`,
-		ratio: r.down / max,
-		state: 'series',
-		value: duration(r.down),
-		tip: `<div class="sd-tip-title">${esc(svcName(r.serviceid))}</div>`
-			+ tipRow(t('Downtime'), duration(r.down))
-			+ tipRow(t('Incidents'), String(r.incidents))
-			+ tipRow(t('Mean time to recover'), duration(r.mttr))
-	}));
-	return rankedBars(t('Top downtime'), t('Services with the most downtime in the selected period'), items, 'sd-span-half');
-}
-
-// ---------------------------------------------------------------- tabela
-
-function sparkline(cells, slo) {
-	const vals = cells.map((c) => (c ? c[0] : null));
-	const present = vals.filter((v) => v !== null);
-	if (!present.length) return '';
-	const W = 120, H = 26;
-	const lo = Math.min(slo, ...present);
-	const y0 = niceMin(lo);
-	const n = vals.length;
-	const x = (i) => (n <= 1 ? W / 2 : 2 + i * (W - 4) / (n - 1));
-	const y = (v) => 3 + (100 - v) / (100 - y0) * (H - 6);
-	let d = '', pen = false;
-	vals.forEach((v, i) => {
-		if (v === null) { pen = false; return; }
-		d += `${pen ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`;
-		pen = true;
+		else {
+			const b = el('button', {type: 'button', class: 'sd-crumb'}, esc(label));
+			b.addEventListener('click', () => open(target));
+			nav.appendChild(b);
+		}
 	});
-	const dots = vals.map((v, i) => (v !== null && v < slo ? `<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="2" class="sd-spark-dot"/>` : '')).join('');
-	return `<svg class="sd-spark" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" aria-hidden="true"><line x1="0" x2="${W}" y1="${y(slo).toFixed(1)}" y2="${y(slo).toFixed(1)}" class="sd-spark-slo"/><path d="${d}" class="sd-spark-line"/>${dots}</svg>`;
+	root.appendChild(nav);
 }
 
-const COLUMNS = [
-	{key: 'name', label: () => t('Service'), sort: (r, ctx) => ctx.svcName(r.serviceid).toLowerCase()},
-	{key: 'sla', label: () => t('SLA'), sort: (r, ctx) => ctx.slaName(r.slaid).toLowerCase()},
-	{key: 'slo', label: () => t('SLO'), sort: (r) => r.slo, num: true},
-	{key: 'sli', label: () => t('SLI'), sort: (r) => (r.sli === null ? 1e9 : r.sli - r.slo), num: true},
-	{key: 'up', label: () => t('Uptime'), sort: (r) => r.up, num: true},
-	{key: 'down', label: () => t('Downtime'), sort: (r) => r.down, num: true},
-	{key: 'budget', label: () => t('Error budget'), sort: (r) => (r.budget === null ? 1e15 : r.budget), num: true},
-	{key: 'incidents', label: () => t('Incidents'), sort: (r) => r.incidents, num: true},
-	{key: 'mttr', label: () => t('MTTR'), sort: (r) => r.mttr ?? -1, num: true},
-	{key: 'trend', label: () => t('Trend')}
-];
+function detail(root, data, m, path, open, slaPick) {
+	const id = path.at(-1);
+	const rows = m.rowsBy.get(id) || [];
+	const row = m.primary(id, slaPick.get(id) || null);
 
-let tableSort = {key: 'sli', dir: 1};
+	crumbs(root, m, path, open);
 
-function table(data, rows, ctx) {
-	const [p, body] = panel(t('Services'), t('Click a service to open its SLA report'), 'sd-span-3');
-	const wrap = el('div', {class: 'sd-table-wrap'});
-	body.appendChild(wrap);
+	const head = el('div', {class: `sd-svc is-${row.state}`});
+	const report = `zabbix.php?action=slareport.list&filter_slaid=${encodeURIComponent(row.slaid)}&filter_serviceid=${encodeURIComponent(id)}&filter_set=1`;
+	head.innerHTML = `
+		<div class="sd-svc-top">
+			<div class="sd-svc-name">${m.problem(id) ? `<span class="sd-live" title="${esc(t('Problem'))}"></span>` : ''}${esc(m.name(id))}</div>
+			<span class="sd-chip is-${row.state}">${esc(STATE_LABEL()[row.state])}</span>
+			<a class="sd-svc-link" href="${report}">${esc(t('SLA report'))} ›</a>
+		</div>
+		<div class="sd-stats">
+			<div class="sd-stat sd-stat-main"><span class="sd-stat-value">${esc(pct(row.sli))}</span><span class="sd-stat-label">${esc(t('SLI'))} · ${esc(t('SLO'))} ${esc(pct(row.slo))}</span></div>
+			<div class="sd-stat"><span class="sd-stat-value">${esc(duration(row.down))}</span><span class="sd-stat-label">${esc(t('Downtime'))}</span></div>
+			<div class="sd-stat"><span class="sd-stat-value${row.budget !== null && row.budget < 0 ? ' sd-neg' : ''}">${esc(duration(row.budget))}</span><span class="sd-stat-label">${esc(t('Error budget'))}</span></div>
+			<div class="sd-stat"><span class="sd-stat-value">${row.incidents}</span><span class="sd-stat-label">${esc(t('Incidents'))}</span></div>
+		</div>`;
+	root.appendChild(head);
 
-	const render = () => {
-		const col = COLUMNS.find((c) => c.key === tableSort.key) || COLUMNS[3];
-		const sorted = [...rows].sort((a, b) => {
-			const va = col.sort(a, ctx), vb = col.sort(b, ctx);
-			return (va < vb ? -1 : va > vb ? 1 : 0) * tableSort.dir;
-		});
-		let html = '<table class="sd-table"><thead><tr>';
-		for (const c of COLUMNS) {
-			const active = c.key === tableSort.key;
-			html += `<th class="${c.num ? 'is-num' : ''}${c.sort ? ' is-sortable' : ''}${active ? ' is-sorted' : ''}" data-key="${c.key}">${esc(c.label())}${active ? `<span class="sd-sort">${tableSort.dir > 0 ? '▲' : '▼'}</span>` : ''}</th>`;
+	// Abas de SLA só quando o serviço está em mais de uma.
+	if (rows.length > 1) {
+		const tabs = el('div', {class: 'sd-tabs', role: 'tablist'});
+		for (const r of rows) {
+			const active = r.slaid === row.slaid;
+			const b = el('button', {type: 'button', role: 'tab', class: `sd-tab${active ? ' is-active' : ''}`,
+				'aria-selected': active ? 'true' : 'false'}, esc(r.slaName));
+			b.addEventListener('click', () => { slaPick.set(id, r.slaid); open(path); });
+			tabs.appendChild(b);
 		}
-		html += '</tr></thead><tbody>';
-		for (const r of sorted) {
-			const state = stateOf(r.sli, r.slo, r.down);
-			const link = `zabbix.php?action=slareport.list&filter_slaid=${encodeURIComponent(r.slaid)}&filter_serviceid=${encodeURIComponent(r.serviceid)}&filter_set=1`;
-			const svc = data.services[r.serviceid];
-			html += `<tr>
-				<td><span class="sd-status-dot ${svc && svc.status >= 0 ? 'is-problem' : 'is-ok'}" title="${esc(svc && svc.status >= 0 ? t('Problem') : t('OK'))}"></span><a href="${link}">${esc(ctx.svcName(r.serviceid))}</a>${r.ongoing ? ` <span class="sd-chip is-breach">${esc(t('Problem'))}</span>` : ''}</td>
-				<td class="sd-muted">${esc(ctx.slaName(r.slaid))}</td>
-				<td class="is-num">${esc(pct(r.slo))}</td>
-				<td class="is-num"><span class="sd-chip is-${state}">${esc(pct(r.sli))}</span></td>
-				<td class="is-num">${esc(duration(r.up))}</td>
-				<td class="is-num">${esc(duration(r.down))}</td>
-				<td class="is-num ${r.budget !== null && r.budget < 0 ? 'sd-neg' : ''}">${esc(duration(r.budget))}</td>
-				<td class="is-num">${r.incidents}</td>
-				<td class="is-num">${esc(duration(r.mttr))}</td>
-				<td>${sparkline(r.cells, r.slo)}</td>
-			</tr>`;
+		head.appendChild(tabs);
+	}
+
+	const [chart, draw] = trend(data, row);
+	const chartBox = el('div', {class: 'sd-box'});
+	chartBox.appendChild(el('div', {class: 'sd-box-title'},
+		`${esc(t('SLI'))} <span class="sd-muted">· ${esc(row.slaName)} · ${esc(rangeLabel(data))}</span>`));
+	chartBox.appendChild(chart);
+	root.appendChild(chartBox);
+
+	const comps = m.components(id).sort(m.byWorst(row.slaid));
+	if (comps.length) {
+		const box = el('div', {class: 'sd-box'});
+		box.appendChild(el('div', {class: 'sd-box-title'}, esc(t('Components'))));
+		const list = el('div', {class: 'sd-comps'});
+		for (const c of comps) {
+			const r = m.primary(c, row.slaid);
+			const deeper = m.components(c).length > 0;
+			const item = el('div', {class: `sd-comp is-${r.state}`});
+			const nameBtn = el('button', {type: 'button', class: 'sd-comp-name'},
+				`${m.problem(c) ? `<span class="sd-live" title="${esc(t('Problem'))}"></span>` : ''}<span class="sd-comp-label">${esc(m.name(c))}</span>${deeper ? '<span class="sd-chev">›</span>' : ''}`);
+			nameBtn.addEventListener('click', () => open([...path, c]));
+			item.appendChild(nameBtn);
+			item.appendChild(el('span', {class: `sd-chip is-${r.state}`}, esc(pct(r.sli))));
+			item.appendChild(strip(data, r, 90, true));
+			item.appendChild(el('span', {class: 'sd-comp-down', title: t('Downtime')}, esc(duration(r.down))));
+			list.appendChild(item);
 		}
-		html += '</tbody></table>';
-		wrap.innerHTML = html;
-		wrap.querySelectorAll('th.is-sortable').forEach((th) => th.addEventListener('click', () => {
-			const key = th.dataset.key;
-			tableSort = {key, dir: tableSort.key === key ? -tableSort.dir : 1};
-			render();
-		}));
-	};
-	render();
-	return p;
+		box.appendChild(list);
+		root.appendChild(box);
+	}
+	return [draw];
 }
 
 // ---------------------------------------------------------------- página
 
-function render(root, data) {
-	root.innerHTML = '';
-
-	if (!data.slas.length || !data.buckets.length) {
-		root.appendChild(el('div', {class: 'sd-empty'},
-			`<div class="sd-empty-title">${esc(t('No data found'))}</div><div class="sd-muted">${esc(t('No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above.'))}</div>`));
-		return [];
-	}
-
-	const slaById = Object.fromEntries(data.slas.map((s) => [s.slaid, s]));
-	const rows = data.rows.map((r) => ({...r, slo: slaById[r.slaid].slo}));
-	const svcName = (id) => (data.services[id] ? data.services[id].name : id);
-	const slaName = (id) => (slaById[id] ? slaById[id].name : id);
-
-	if (!rows.length) {
-		root.appendChild(el('div', {class: 'sd-empty'},
-			`<div class="sd-empty-title">${esc(t('No data found'))}</div><div class="sd-muted">${esc(t('No service matches the filter.'))}</div>`));
-		return [];
-	}
-
-	if (data.truncated) {
-		root.appendChild(el('div', {class: 'sd-note'},
-			esc(t('Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range.', data.buckets.length))));
-	}
-
-	root.appendChild(kpis(data, rows));
-
-	const grid = el('div', {class: 'sd-grid'});
-	root.appendChild(grid);
-
-	const [trendPanel, drawTrend] = trendChart(data);
-	grid.appendChild(trendPanel);
-	grid.appendChild(slaCards(data, rows));
-
-	const heatRows = [...rows].sort((a, b) => (a.slaid === b.slaid
-		? svcName(a.serviceid).localeCompare(svcName(b.serviceid), LANG)
-		: slaName(a.slaid).localeCompare(slaName(b.slaid), LANG)));
-	const [heatPanel, drawHeat] = heatmap(data, heatRows, svcName);
-	grid.appendChild(heatPanel);
-
-	grid.appendChild(budgetPanel(data, rows, svcName, slaName));
-	grid.appendChild(downtimePanel(data, rows, svcName, slaName));
-	grid.appendChild(table(data, rows, {svcName, slaName}));
-
-	return [drawTrend, drawHeat];
+function readPath() {
+	return location.hash.replace(/^#\/?/, '').split('/').filter((x) => /^\d+$/.test(x));
 }
 
 function mount() {
@@ -628,17 +499,57 @@ function mount() {
 	if (!root || !boot.data) return;
 
 	let data = boot.data;
-	let draws = render(root, data);
-	const redraw = () => draws.forEach((d) => d());
-	redraw();
+	let draws = [];
+	const slaPick = new Map();
+
+	const render = () => {
+		hideTip();
+		root.innerHTML = '';
+		const view = el('div', {class: 'sd-view'});
+		root.appendChild(view);
+		draws = [];
+
+		if (!data.slas.length || !data.buckets.length || !data.rows.length) {
+			view.appendChild(el('div', {class: 'sd-empty'},
+				`<div class="sd-empty-title">${esc(t('No data found'))}</div><div class="sd-muted">${esc(t('No service with an enabled SLA matches the filter.'))}</div>`));
+			return;
+		}
+		if (data.truncated) {
+			view.appendChild(el('div', {class: 'sd-note'},
+				esc(t('Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range.', data.buckets.length))));
+		}
+
+		const m = model(data);
+		// Caminho da URL, só com serviços que ainda aparecem; com um único serviço de topo, ele abre direto.
+		let path = readPath().filter((id) => m.measured(id));
+		if (!path.length && m.top.length === 1) path = [m.top[0]];
+
+		if (path.length) {
+			draws = detail(view, data, m, path, open, slaPick);
+		}
+		else {
+			overview(view, data, m, open);
+		}
+		draws.forEach((d) => d());
+	};
+
+	function open(path) {
+		const url = path.length ? `#/${path.join('/')}` : location.pathname + location.search;
+		history.pushState(null, '', url);
+		render();
+		document.querySelector('.wrapper')?.scrollTo({top: 0});
+	}
+
+	render();
+	window.addEventListener('popstate', render);
 
 	let raf = 0;
 	new ResizeObserver(() => {
 		cancelAnimationFrame(raf);
-		raf = requestAnimationFrame(redraw);
+		raf = requestAnimationFrame(() => draws.forEach((d) => d()));
 	}).observe(root);
 
-	// Atualização periódica com o mesmo filtro (salvo no perfil). Só redesenha se algo mudou.
+	// Atualização periódica com o mesmo filtro (salvo no perfil); só redesenha se algo mudou.
 	if (boot.refreshMs > 0) {
 		let last = JSON.stringify({...data, now: 0});
 		setInterval(async () => {
@@ -652,10 +563,10 @@ function mount() {
 				if (s === last) return;
 				last = s;
 				data = fresh;
-				const y = document.querySelector('.wrapper')?.scrollTop;
-				draws = render(root, data);
-				redraw();
-				if (y !== undefined) document.querySelector('.wrapper').scrollTop = y;
+				const wrapper = document.querySelector('.wrapper');
+				const y = wrapper?.scrollTop;
+				render();
+				if (wrapper && y !== undefined) wrapper.scrollTop = y;
 			}
 			catch (e) {
 				// rede/sessão: tenta de novo no próximo ciclo

@@ -29,14 +29,11 @@ msgstr "Тоқтап тұру SLO шегінде"
 msgid "Below SLO"
 msgstr "SLO-дан төмен"
 
-msgid "Overall SLI"
-msgstr "Жалпы SLI"
+msgid "Incidents"
+msgstr "Инциденттер"
 
-msgid "Time-weighted across %1$s services"
-msgstr "%1$s қызмет бойынша уақытпен өлшенген"
-
-msgid "Services meeting SLO"
-msgstr "SLO-ны орындайтын қызметтер"
+msgid "%1$s services"
+msgstr "%1$s қызмет"
 
 msgid "%1$s below SLO"
 msgstr "%1$s SLO-дан төмен"
@@ -44,70 +41,17 @@ msgstr "%1$s SLO-дан төмен"
 msgid "All within SLO"
 msgstr "Барлығы SLO шегінде"
 
-msgid "Incidents"
-msgstr "Инциденттер"
+msgid "%1$s with a problem now"
+msgstr "%1$s қазір ақаулы"
 
-msgid "%1$s ongoing now"
-msgstr "%1$s қазір жалғасуда"
+msgid "Other services"
+msgstr "Басқа қызметтер"
 
-msgid "None ongoing"
-msgstr "Жалғасып жатқаны жоқ"
+msgid "Components"
+msgstr "Компоненттер"
 
-msgid "Mean time to recover"
-msgstr "Қалпына келтірудің орташа уақыты"
-
-msgid "MTTR, resolved incidents"
-msgstr "MTTR, шешілген инциденттер"
-
-msgid "SLA compliance"
-msgstr "SLA сәйкестігі"
-
-msgid "%1$s services"
-msgstr "%1$s қызмет"
-
-msgid "SLI trend"
-msgstr "SLI тренді"
-
-msgid "Per SLA, time-weighted across its services; dashed line = SLO"
-msgstr "Әр SLA бойынша, оның қызметтері бойынша уақытпен өлшенген; үзік сызық = SLO"
-
-msgid "SLI heatmap"
-msgstr "SLI жылу картасы"
-
-msgid "Each cell is one period of one service, compared with the SLO of its SLA"
-msgstr "Әр ұяшық — бір қызметтің бір кезеңі, оның SLA-сындағы SLO-мен салыстырылған"
-
-msgid "No downtime in the selected period."
-msgstr "Таңдалған кезеңде тоқтап тұру болған жоқ."
-
-msgid "Error budget used"
-msgstr "Пайдаланылған қате бюджеті"
-
-msgid "Downtime as a share of what the SLO allows; marker = 100%"
-msgstr "SLO рұқсат ететін тоқтап тұрудың үлесі; белгі = 100%"
-
-msgid "Top downtime"
-msgstr "Ең көп тоқтап тұру"
-
-msgid "Services with the most downtime in the selected period"
-msgstr "Таңдалған кезеңде ең көп тоқтап тұрған қызметтер"
-
-#. Mean time to recover, abbreviation (table column)
-msgid "MTTR"
-msgstr "MTTR"
-
-#. table column with a sparkline
-msgid "Trend"
-msgstr "Тренд"
-
-msgid "Click a service to open its SLA report"
-msgstr "SLA есебін ашу үшін қызметті басыңыз"
-
-msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
-msgstr "Сүзгіге сәйкес келетін қосулы SLA жоқ. Жоғарыдағы сүзгіден басқа SLA, қызметтер, хосттар немесе тегтерді таңдаңыз."
-
-msgid "No service matches the filter."
-msgstr "Сүзгіге сәйкес келетін қызмет жоқ."
+msgid "No service with an enabled SLA matches the filter."
+msgstr "Сүзгіге сәйкес келетін SLA қосылған қызмет жоқ."
 
 msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
 msgstr "Таңдалған аралық үшін кезеңдер тым көп: соңғы %1$s көрсетілуде. Ұзағырақ кезең бойынша топтаңыз немесе қысқарақ аралықты таңдаңыз."

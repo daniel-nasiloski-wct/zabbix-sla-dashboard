@@ -29,14 +29,11 @@ msgstr "Nedetid innenfor SLO"
 msgid "Below SLO"
 msgstr "Under SLO"
 
-msgid "Overall SLI"
-msgstr "Samlet SLI"
+msgid "Incidents"
+msgstr "Hendelser"
 
-msgid "Time-weighted across %1$s services"
-msgstr "Tidsvektet over %1$s tjenester"
-
-msgid "Services meeting SLO"
-msgstr "Tjenester som oppfyller SLO"
+msgid "%1$s services"
+msgstr "%1$s tjenester"
 
 msgid "%1$s below SLO"
 msgstr "%1$s under SLO"
@@ -44,70 +41,17 @@ msgstr "%1$s under SLO"
 msgid "All within SLO"
 msgstr "Alle innenfor SLO"
 
-msgid "Incidents"
-msgstr "Hendelser"
+msgid "%1$s with a problem now"
+msgstr "%1$s med et problem nå"
 
-msgid "%1$s ongoing now"
-msgstr "%1$s pågår nå"
+msgid "Other services"
+msgstr "Andre tjenester"
 
-msgid "None ongoing"
-msgstr "Ingen pågår"
+msgid "Components"
+msgstr "Komponenter"
 
-msgid "Mean time to recover"
-msgstr "Gjennomsnittlig gjenopprettingstid"
-
-msgid "MTTR, resolved incidents"
-msgstr "MTTR, løste hendelser"
-
-msgid "SLA compliance"
-msgstr "SLA-oppfyllelse"
-
-msgid "%1$s services"
-msgstr "%1$s tjenester"
-
-msgid "SLI trend"
-msgstr "SLI-trend"
-
-msgid "Per SLA, time-weighted across its services; dashed line = SLO"
-msgstr "Per SLA, tidsvektet over tjenestene; stiplet linje = SLO"
-
-msgid "SLI heatmap"
-msgstr "SLI-varmekart"
-
-msgid "Each cell is one period of one service, compared with the SLO of its SLA"
-msgstr "Hver celle er én periode for én tjeneste, sammenlignet med SLO-en for dens SLA"
-
-msgid "No downtime in the selected period."
-msgstr "Ingen nedetid i valgt periode."
-
-msgid "Error budget used"
-msgstr "Brukt feilbudsjett"
-
-msgid "Downtime as a share of what the SLO allows; marker = 100%"
-msgstr "Nedetid som andel av det SLO tillater; markør = 100%"
-
-msgid "Top downtime"
-msgstr "Mest nedetid"
-
-msgid "Services with the most downtime in the selected period"
-msgstr "Tjenester med mest nedetid i valgt periode"
-
-#. Mean time to recover, abbreviation (table column)
-msgid "MTTR"
-msgstr "MTTR"
-
-#. table column with a sparkline
-msgid "Trend"
-msgstr "Trend"
-
-msgid "Click a service to open its SLA report"
-msgstr "Klikk på en tjeneste for å åpne SLA-rapporten"
-
-msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
-msgstr "Ingen aktiverte SLA-er samsvarer med filteret. Velg andre SLA-er, tjenester, verter eller tagger i filteret over."
-
-msgid "No service matches the filter."
-msgstr "Ingen tjenester samsvarer med filteret."
+msgid "No service with an enabled SLA matches the filter."
+msgstr "Ingen tjeneste med aktivert SLA samsvarer med filteret."
 
 msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
 msgstr "For mange perioder for valgt tidsrom: viser de siste %1$s. Grupper etter en lengre periode eller velg et kortere tidsrom."

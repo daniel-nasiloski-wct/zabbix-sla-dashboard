@@ -60,7 +60,8 @@ class CControllerSlaDashboardView extends CController {
 			'version' => $module !== null ? $module->getVersion() : '0',
 			'filter' => $filter,
 			'filter_counter' => CSlaFilter::countActive($filter),
-			'active_tab' => (int) CProfile::get(CSlaFilter::PROFILE.'.active', 1),
+			// Recolhido até o usuário abrir (o Zabbix lembra a escolha em .active): a página fica enxuta.
+			'active_tab' => (int) CProfile::get(CSlaFilter::PROFILE.'.active', 0),
 			'ms' => self::multiselectData($filter),
 			'errors' => $data['errors'],
 			'can_manage_sla' => $this->checkAccess(CRoleHelper::ACTIONS_MANAGE_SLA),

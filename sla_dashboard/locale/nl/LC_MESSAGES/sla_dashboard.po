@@ -29,14 +29,11 @@ msgstr "Uitvaltijd binnen SLO"
 msgid "Below SLO"
 msgstr "Onder SLO"
 
-msgid "Overall SLI"
-msgstr "Totale SLI"
+msgid "Incidents"
+msgstr "Incidenten"
 
-msgid "Time-weighted across %1$s services"
-msgstr "Tijdgewogen over %1$s services"
-
-msgid "Services meeting SLO"
-msgstr "Services die aan SLO voldoen"
+msgid "%1$s services"
+msgstr "%1$s services"
 
 msgid "%1$s below SLO"
 msgstr "%1$s onder SLO"
@@ -44,70 +41,17 @@ msgstr "%1$s onder SLO"
 msgid "All within SLO"
 msgstr "Alle binnen SLO"
 
-msgid "Incidents"
-msgstr "Incidenten"
+msgid "%1$s with a problem now"
+msgstr "%1$s met een probleem nu"
 
-msgid "%1$s ongoing now"
-msgstr "%1$s nu gaande"
+msgid "Other services"
+msgstr "Overige services"
 
-msgid "None ongoing"
-msgstr "Geen gaande"
+msgid "Components"
+msgstr "Componenten"
 
-msgid "Mean time to recover"
-msgstr "Gemiddelde hersteltijd"
-
-msgid "MTTR, resolved incidents"
-msgstr "MTTR, opgeloste incidenten"
-
-msgid "SLA compliance"
-msgstr "SLA-naleving"
-
-msgid "%1$s services"
-msgstr "%1$s services"
-
-msgid "SLI trend"
-msgstr "SLI-trend"
-
-msgid "Per SLA, time-weighted across its services; dashed line = SLO"
-msgstr "Per SLA, tijdgewogen over de services; stippellijn = SLO"
-
-msgid "SLI heatmap"
-msgstr "SLI-heatmap"
-
-msgid "Each cell is one period of one service, compared with the SLO of its SLA"
-msgstr "Elke cel is één periode van één service, vergeleken met de SLO van de SLA"
-
-msgid "No downtime in the selected period."
-msgstr "Geen uitvaltijd in de geselecteerde periode."
-
-msgid "Error budget used"
-msgstr "Gebruikt foutbudget"
-
-msgid "Downtime as a share of what the SLO allows; marker = 100%"
-msgstr "Uitvaltijd als deel van wat de SLO toestaat; markering = 100%"
-
-msgid "Top downtime"
-msgstr "Meeste uitvaltijd"
-
-msgid "Services with the most downtime in the selected period"
-msgstr "Services met de meeste uitvaltijd in de geselecteerde periode"
-
-#. Mean time to recover, abbreviation (table column)
-msgid "MTTR"
-msgstr "MTTR"
-
-#. table column with a sparkline
-msgid "Trend"
-msgstr "Trend"
-
-msgid "Click a service to open its SLA report"
-msgstr "Klik op een service om het SLA-rapport te openen"
-
-msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
-msgstr "Geen ingeschakelde SLA komt overeen met het filter. Kies andere SLA's, services, hosts of tags in het filter hierboven."
-
-msgid "No service matches the filter."
-msgstr "Geen service komt overeen met het filter."
+msgid "No service with an enabled SLA matches the filter."
+msgstr "Geen service met een ingeschakelde SLA komt overeen met het filter."
 
 msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
 msgstr "Te veel perioden voor het geselecteerde bereik: de laatste %1$s worden getoond. Groepeer op een langere periode of kies een korter bereik."

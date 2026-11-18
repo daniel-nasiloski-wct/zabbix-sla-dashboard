@@ -29,14 +29,11 @@ msgstr "중단 시간이 SLO 이내"
 msgid "Below SLO"
 msgstr "SLO 미달"
 
-msgid "Overall SLI"
-msgstr "전체 SLI"
+msgid "Incidents"
+msgstr "인시던트"
 
-msgid "Time-weighted across %1$s services"
-msgstr "서비스 %1$s개에 대한 시간 가중"
-
-msgid "Services meeting SLO"
-msgstr "SLO 충족 서비스"
+msgid "%1$s services"
+msgstr "서비스 %1$s개"
 
 msgid "%1$s below SLO"
 msgstr "%1$s개 SLO 미달"
@@ -44,70 +41,17 @@ msgstr "%1$s개 SLO 미달"
 msgid "All within SLO"
 msgstr "모두 SLO 이내"
 
-msgid "Incidents"
-msgstr "인시던트"
+msgid "%1$s with a problem now"
+msgstr "%1$s개 현재 장애"
 
-msgid "%1$s ongoing now"
-msgstr "현재 %1$s개 진행 중"
+msgid "Other services"
+msgstr "기타 서비스"
 
-msgid "None ongoing"
-msgstr "진행 중 없음"
+msgid "Components"
+msgstr "구성 요소"
 
-msgid "Mean time to recover"
-msgstr "평균 복구 시간"
-
-msgid "MTTR, resolved incidents"
-msgstr "MTTR, 해결된 인시던트"
-
-msgid "SLA compliance"
-msgstr "SLA 준수"
-
-msgid "%1$s services"
-msgstr "서비스 %1$s개"
-
-msgid "SLI trend"
-msgstr "SLI 추세"
-
-msgid "Per SLA, time-weighted across its services; dashed line = SLO"
-msgstr "SLA별, 소속 서비스에 대한 시간 가중; 점선 = SLO"
-
-msgid "SLI heatmap"
-msgstr "SLI 히트맵"
-
-msgid "Each cell is one period of one service, compared with the SLO of its SLA"
-msgstr "각 셀은 한 서비스의 한 기간이며, 해당 SLA의 SLO와 비교됩니다"
-
-msgid "No downtime in the selected period."
-msgstr "선택한 기간에 중단 시간이 없습니다."
-
-msgid "Error budget used"
-msgstr "사용한 오류 예산"
-
-msgid "Downtime as a share of what the SLO allows; marker = 100%"
-msgstr "SLO가 허용하는 중단 시간 대비 비율; 표시선 = 100%"
-
-msgid "Top downtime"
-msgstr "중단 시간 상위"
-
-msgid "Services with the most downtime in the selected period"
-msgstr "선택한 기간에 중단 시간이 가장 긴 서비스"
-
-#. Mean time to recover, abbreviation (table column)
-msgid "MTTR"
-msgstr "MTTR"
-
-#. table column with a sparkline
-msgid "Trend"
-msgstr "추세"
-
-msgid "Click a service to open its SLA report"
-msgstr "서비스를 클릭하면 SLA 보고서가 열립니다"
-
-msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
-msgstr "필터와 일치하는 활성화된 SLA가 없습니다. 위 필터에서 다른 SLA, 서비스, 호스트 또는 태그를 선택하세요."
-
-msgid "No service matches the filter."
-msgstr "필터와 일치하는 서비스가 없습니다."
+msgid "No service with an enabled SLA matches the filter."
+msgstr "필터와 일치하는 SLA가 활성화된 서비스가 없습니다."
 
 msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
 msgstr "선택한 범위의 기간이 너무 많습니다: 최근 %1$s개를 표시합니다. 더 긴 기간으로 그룹화하거나 더 짧은 범위를 선택하세요."

@@ -29,14 +29,11 @@ msgstr "Downtime dalam SLO"
 msgid "Below SLO"
 msgstr "Di bawah SLO"
 
-msgid "Overall SLI"
-msgstr "SLI keseluruhan"
+msgid "Incidents"
+msgstr "Insiden"
 
-msgid "Time-weighted across %1$s services"
-msgstr "Berbobot waktu dari %1$s service"
-
-msgid "Services meeting SLO"
-msgstr "Service yang memenuhi SLO"
+msgid "%1$s services"
+msgstr "%1$s service"
 
 msgid "%1$s below SLO"
 msgstr "%1$s di bawah SLO"
@@ -44,70 +41,17 @@ msgstr "%1$s di bawah SLO"
 msgid "All within SLO"
 msgstr "Semua dalam SLO"
 
-msgid "Incidents"
-msgstr "Insiden"
+msgid "%1$s with a problem now"
+msgstr "%1$s sedang bermasalah"
 
-msgid "%1$s ongoing now"
-msgstr "%1$s sedang berlangsung"
+msgid "Other services"
+msgstr "Service lainnya"
 
-msgid "None ongoing"
-msgstr "Tidak ada yang berlangsung"
+msgid "Components"
+msgstr "Komponen"
 
-msgid "Mean time to recover"
-msgstr "Rata-rata waktu pemulihan"
-
-msgid "MTTR, resolved incidents"
-msgstr "MTTR, insiden terselesaikan"
-
-msgid "SLA compliance"
-msgstr "Kepatuhan SLA"
-
-msgid "%1$s services"
-msgstr "%1$s service"
-
-msgid "SLI trend"
-msgstr "Tren SLI"
-
-msgid "Per SLA, time-weighted across its services; dashed line = SLO"
-msgstr "Per SLA, berbobot waktu dari service-nya; garis putus-putus = SLO"
-
-msgid "SLI heatmap"
-msgstr "Heatmap SLI"
-
-msgid "Each cell is one period of one service, compared with the SLO of its SLA"
-msgstr "Setiap sel adalah satu periode dari satu service, dibandingkan dengan SLO dari SLA-nya"
-
-msgid "No downtime in the selected period."
-msgstr "Tidak ada downtime pada periode yang dipilih."
-
-msgid "Error budget used"
-msgstr "Error budget terpakai"
-
-msgid "Downtime as a share of what the SLO allows; marker = 100%"
-msgstr "Downtime sebagai porsi dari yang diizinkan SLO; penanda = 100%"
-
-msgid "Top downtime"
-msgstr "Downtime tertinggi"
-
-msgid "Services with the most downtime in the selected period"
-msgstr "Service dengan downtime terbanyak pada periode yang dipilih"
-
-#. Mean time to recover, abbreviation (table column)
-msgid "MTTR"
-msgstr "MTTR"
-
-#. table column with a sparkline
-msgid "Trend"
-msgstr "Tren"
-
-msgid "Click a service to open its SLA report"
-msgstr "Klik service untuk membuka laporan SLA-nya"
-
-msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
-msgstr "Tidak ada SLA aktif yang cocok dengan filter. Pilih SLA, service, host, atau tag lain pada filter di atas."
-
-msgid "No service matches the filter."
-msgstr "Tidak ada service yang cocok dengan filter."
+msgid "No service with an enabled SLA matches the filter."
+msgstr "Tidak ada service dengan SLA aktif yang cocok dengan filter."
 
 msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
 msgstr "Terlalu banyak periode untuk rentang yang dipilih: menampilkan %1$s terakhir. Kelompokkan dengan periode lebih panjang atau pilih rentang lebih pendek."
