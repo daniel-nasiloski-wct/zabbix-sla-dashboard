@@ -1,0 +1,116 @@
+# SLA dashboard (módulo do Zabbix 8.0): textos que o domínio "frontend" do core não tem.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: sk\n"
+
+#. days, short (2d)
+msgid "%1$sd"
+msgstr "%1$sd"
+
+#. hours, short (5h)
+msgid "%1$sh"
+msgstr "%1$sh"
+
+#. minutes, short (30m)
+msgid "%1$sm"
+msgstr "%1$sm"
+
+#. seconds, short (10s)
+msgid "%1$ss"
+msgstr "%1$ss"
+
+msgid "No downtime"
+msgstr "Bez prestoja"
+
+msgid "Downtime within SLO"
+msgstr "Prestoj v rámci SLO"
+
+msgid "Below SLO"
+msgstr "Pod SLO"
+
+msgid "Overall SLI"
+msgstr "Celkové SLI"
+
+msgid "Time-weighted across %1$s services"
+msgstr "Vážené časom naprieč %1$s službami"
+
+msgid "Services meeting SLO"
+msgstr "Služby plniace SLO"
+
+msgid "%1$s below SLO"
+msgstr "%1$s pod SLO"
+
+msgid "All within SLO"
+msgstr "Všetky v rámci SLO"
+
+msgid "Incidents"
+msgstr "Incidenty"
+
+msgid "%1$s ongoing now"
+msgstr "%1$s práve prebieha"
+
+msgid "None ongoing"
+msgstr "Žiadne neprebiehajú"
+
+msgid "Mean time to recover"
+msgstr "Priemerný čas obnovy"
+
+msgid "MTTR, resolved incidents"
+msgstr "MTTR, vyriešené incidenty"
+
+msgid "SLA compliance"
+msgstr "Plnenie SLA"
+
+msgid "%1$s services"
+msgstr "Služby: %1$s"
+
+msgid "SLI trend"
+msgstr "Trend SLI"
+
+msgid "Per SLA, time-weighted across its services; dashed line = SLO"
+msgstr "Podľa SLA, vážené časom naprieč jeho službami; prerušovaná čiara = SLO"
+
+msgid "SLI heatmap"
+msgstr "Teplotná mapa SLI"
+
+msgid "Each cell is one period of one service, compared with the SLO of its SLA"
+msgstr "Každá bunka je jedna perióda jednej služby, porovnaná so SLO jej SLA"
+
+msgid "No downtime in the selected period."
+msgstr "Žiadny prestoj vo vybranej perióde."
+
+msgid "Error budget used"
+msgstr "Využitý rozpočet chýb"
+
+msgid "Downtime as a share of what the SLO allows; marker = 100%"
+msgstr "Prestoj ako podiel toho, čo SLO dovoľuje; značka = 100%"
+
+msgid "Top downtime"
+msgstr "Najväčší prestoj"
+
+msgid "Services with the most downtime in the selected period"
+msgstr "Služby s najväčším prestojom vo vybranej perióde"
+
+#. Mean time to recover, abbreviation (table column)
+msgid "MTTR"
+msgstr "MTTR"
+
+#. table column with a sparkline
+msgid "Trend"
+msgstr "Trend"
+
+msgid "Click a service to open its SLA report"
+msgstr "Kliknite na službu pre otvorenie jej reportu SLA"
+
+msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
+msgstr "Filtru nezodpovedá žiadne povolené SLA. Vyberte iné SLA, služby, hosty alebo tagy vo filtri vyššie."
+
+msgid "No service matches the filter."
+msgstr "Filtru nezodpovedá žiadna služba."
+
+msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
+msgstr "Príliš veľa periód pre vybraný rozsah: zobrazuje sa posledných %1$s. Zoskupte podľa dlhšej periódy alebo vyberte kratší rozsah."
+
+msgid "SLA dashboard"
+msgstr "Dashboard SLA"

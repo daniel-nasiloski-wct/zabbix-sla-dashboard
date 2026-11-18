@@ -1,0 +1,20 @@
+{
+	"manifest_version": 2.0,
+	"id": "sla_dashboard",
+	"name": "SLA dashboard",
+	"namespace": "SlaDashboard",
+	"version": "1.0.0",
+	"author": "Daniel Nasiloski",
+	"url": "https://github.com/daniel-nasiloski-wct/zabbix-sla-dashboard",
+	"description": "Visual SLA dashboard for Zabbix 8.0 IT services: SLI trend, heatmap, error budget and downtime ranking, with the same filters as the SLA report. Adds Services → SLA dashboard.",
+	"actions": {
+		"sladashboard.view": {
+			"class": "CControllerSlaDashboardView",
+			"view": "sladashboard.view"
+		},
+		"sladashboard.data": {
+			"class": "CControllerSlaDashboardData",
+			"layout": "layout.json"
+		}
+	}
+}

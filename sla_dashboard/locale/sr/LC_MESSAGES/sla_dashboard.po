@@ -1,0 +1,116 @@
+# SLA dashboard (módulo do Zabbix 8.0): textos que o domínio "frontend" do core não tem.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: sr\n"
+
+#. days, short (2d)
+msgid "%1$sd"
+msgstr "%1$sд"
+
+#. hours, short (5h)
+msgid "%1$sh"
+msgstr "%1$sч"
+
+#. minutes, short (30m)
+msgid "%1$sm"
+msgstr "%1$sм"
+
+#. seconds, short (10s)
+msgid "%1$ss"
+msgstr "%1$sс"
+
+msgid "No downtime"
+msgstr "Без застоја"
+
+msgid "Downtime within SLO"
+msgstr "Застој у оквиру SLO"
+
+msgid "Below SLO"
+msgstr "Испод SLO"
+
+msgid "Overall SLI"
+msgstr "Укупни SLI"
+
+msgid "Time-weighted across %1$s services"
+msgstr "Пондерисано временом за %1$s сервиса"
+
+msgid "Services meeting SLO"
+msgstr "Сервиси који испуњавају SLO"
+
+msgid "%1$s below SLO"
+msgstr "%1$s испод SLO"
+
+msgid "All within SLO"
+msgstr "Сви у оквиру SLO"
+
+msgid "Incidents"
+msgstr "Инциденти"
+
+msgid "%1$s ongoing now"
+msgstr "%1$s у току"
+
+msgid "None ongoing"
+msgstr "Ниједан у току"
+
+msgid "Mean time to recover"
+msgstr "Средње време опоравка"
+
+msgid "MTTR, resolved incidents"
+msgstr "MTTR, решени инциденти"
+
+msgid "SLA compliance"
+msgstr "Усклађеност са SLA"
+
+msgid "%1$s services"
+msgstr "Сервиса: %1$s"
+
+msgid "SLI trend"
+msgstr "Тренд SLI"
+
+msgid "Per SLA, time-weighted across its services; dashed line = SLO"
+msgstr "По SLA, пондерисано временом за његове сервисе; испрекидана линија = SLO"
+
+msgid "SLI heatmap"
+msgstr "Топлотна мапа SLI"
+
+msgid "Each cell is one period of one service, compared with the SLO of its SLA"
+msgstr "Свака ћелија је један период једног сервиса, упоређен са SLO његовог SLA"
+
+msgid "No downtime in the selected period."
+msgstr "Нема застоја у изабраном периоду."
+
+msgid "Error budget used"
+msgstr "Искоришћен буџет грешака"
+
+msgid "Downtime as a share of what the SLO allows; marker = 100%"
+msgstr "Застој као удео онога што SLO дозвољава; ознака = 100%"
+
+msgid "Top downtime"
+msgstr "Највећи застој"
+
+msgid "Services with the most downtime in the selected period"
+msgstr "Сервиси са највише застоја у изабраном периоду"
+
+#. Mean time to recover, abbreviation (table column)
+msgid "MTTR"
+msgstr "MTTR"
+
+#. table column with a sparkline
+msgid "Trend"
+msgstr "Тренд"
+
+msgid "Click a service to open its SLA report"
+msgstr "Кликните на сервис да отворите његов SLA извештај"
+
+msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
+msgstr "Ниједан омогућен SLA не одговара филтеру. Изаберите друге SLA, сервисе, хостове или ознаке у филтеру изнад."
+
+msgid "No service matches the filter."
+msgstr "Ниједан сервис не одговара филтеру."
+
+msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
+msgstr "Превише периода за изабрани опсег: приказано последњих %1$s. Групишите по дужем периоду или изаберите краћи опсег."
+
+msgid "SLA dashboard"
+msgstr "SLA контролна табла"

@@ -1,0 +1,116 @@
+# SLA dashboard (módulo do Zabbix 8.0): textos que o domínio "frontend" do core não tem.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: th\n"
+
+#. days, short (2d)
+msgid "%1$sd"
+msgstr "%1$s วัน"
+
+#. hours, short (5h)
+msgid "%1$sh"
+msgstr "%1$s ชม."
+
+#. minutes, short (30m)
+msgid "%1$sm"
+msgstr "%1$s นาที"
+
+#. seconds, short (10s)
+msgid "%1$ss"
+msgstr "%1$s วิ."
+
+msgid "No downtime"
+msgstr "ไม่มีเวลาหยุดทำงาน"
+
+msgid "Downtime within SLO"
+msgstr "เวลาหยุดทำงานอยู่ในเกณฑ์ SLO"
+
+msgid "Below SLO"
+msgstr "ต่ำกว่า SLO"
+
+msgid "Overall SLI"
+msgstr "SLI รวม"
+
+msgid "Time-weighted across %1$s services"
+msgstr "ถ่วงน้ำหนักตามเวลาใน %1$s บริการ"
+
+msgid "Services meeting SLO"
+msgstr "บริการที่ผ่าน SLO"
+
+msgid "%1$s below SLO"
+msgstr "%1$s ต่ำกว่า SLO"
+
+msgid "All within SLO"
+msgstr "ทั้งหมดอยู่ในเกณฑ์ SLO"
+
+msgid "Incidents"
+msgstr "เหตุการณ์"
+
+msgid "%1$s ongoing now"
+msgstr "%1$s กำลังเกิดขึ้น"
+
+msgid "None ongoing"
+msgstr "ไม่มีที่กำลังเกิดขึ้น"
+
+msgid "Mean time to recover"
+msgstr "เวลาเฉลี่ยในการกู้คืน"
+
+msgid "MTTR, resolved incidents"
+msgstr "MTTR, เหตุการณ์ที่แก้ไขแล้ว"
+
+msgid "SLA compliance"
+msgstr "การปฏิบัติตาม SLA"
+
+msgid "%1$s services"
+msgstr "%1$s บริการ"
+
+msgid "SLI trend"
+msgstr "แนวโน้ม SLI"
+
+msgid "Per SLA, time-weighted across its services; dashed line = SLO"
+msgstr "ต่อ SLA ถ่วงน้ำหนักตามเวลาในบริการของ SLA นั้น; เส้นประ = SLO"
+
+msgid "SLI heatmap"
+msgstr "แผนที่ความร้อน SLI"
+
+msgid "Each cell is one period of one service, compared with the SLO of its SLA"
+msgstr "แต่ละช่องคือหนึ่งช่วงเวลาของหนึ่งบริการ เทียบกับ SLO ของ SLA นั้น"
+
+msgid "No downtime in the selected period."
+msgstr "ไม่มีเวลาหยุดทำงานในช่วงเวลาที่เลือก"
+
+msgid "Error budget used"
+msgstr "งบประมาณข้อผิดพลาดที่ใช้ไป"
+
+msgid "Downtime as a share of what the SLO allows; marker = 100%"
+msgstr "เวลาหยุดทำงานเป็นสัดส่วนของที่ SLO อนุญาต; เครื่องหมาย = 100%"
+
+msgid "Top downtime"
+msgstr "หยุดทำงานมากที่สุด"
+
+msgid "Services with the most downtime in the selected period"
+msgstr "บริการที่มีเวลาหยุดทำงานมากที่สุดในช่วงเวลาที่เลือก"
+
+#. Mean time to recover, abbreviation (table column)
+msgid "MTTR"
+msgstr "MTTR"
+
+#. table column with a sparkline
+msgid "Trend"
+msgstr "แนวโน้ม"
+
+msgid "Click a service to open its SLA report"
+msgstr "คลิกบริการเพื่อเปิดรายงาน SLA"
+
+msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
+msgstr "ไม่มี SLA ที่เปิดใช้งานตรงกับตัวกรอง เลือก SLA บริการ โฮสต์ หรือแท็กอื่นในตัวกรองด้านบน"
+
+msgid "No service matches the filter."
+msgstr "ไม่มีบริการที่ตรงกับตัวกรอง"
+
+msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
+msgstr "มีช่วงเวลามากเกินไปสำหรับช่วงที่เลือก: แสดง %1$s ช่วงล่าสุด จัดกลุ่มตามช่วงเวลาที่ยาวขึ้นหรือเลือกช่วงที่สั้นลง"
+
+msgid "SLA dashboard"
+msgstr "แดชบอร์ด SLA"

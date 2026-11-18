@@ -1,0 +1,116 @@
+# SLA dashboard (módulo do Zabbix 8.0): textos que o domínio "frontend" do core não tem.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: vi\n"
+
+#. days, short (2d)
+msgid "%1$sd"
+msgstr "%1$sd"
+
+#. hours, short (5h)
+msgid "%1$sh"
+msgstr "%1$sh"
+
+#. minutes, short (30m)
+msgid "%1$sm"
+msgstr "%1$sm"
+
+#. seconds, short (10s)
+msgid "%1$ss"
+msgstr "%1$ss"
+
+msgid "No downtime"
+msgstr "Không có thời gian down"
+
+msgid "Downtime within SLO"
+msgstr "Thời gian down trong SLO"
+
+msgid "Below SLO"
+msgstr "Dưới SLO"
+
+msgid "Overall SLI"
+msgstr "SLI tổng thể"
+
+msgid "Time-weighted across %1$s services"
+msgstr "Trọng số theo thời gian trên %1$s dịch vụ"
+
+msgid "Services meeting SLO"
+msgstr "Dịch vụ đạt SLO"
+
+msgid "%1$s below SLO"
+msgstr "%1$s dưới SLO"
+
+msgid "All within SLO"
+msgstr "Tất cả trong SLO"
+
+msgid "Incidents"
+msgstr "Sự cố"
+
+msgid "%1$s ongoing now"
+msgstr "%1$s đang diễn ra"
+
+msgid "None ongoing"
+msgstr "Không có sự cố đang diễn ra"
+
+msgid "Mean time to recover"
+msgstr "Thời gian khôi phục trung bình"
+
+msgid "MTTR, resolved incidents"
+msgstr "MTTR, sự cố đã giải quyết"
+
+msgid "SLA compliance"
+msgstr "Tuân thủ SLA"
+
+msgid "%1$s services"
+msgstr "%1$s dịch vụ"
+
+msgid "SLI trend"
+msgstr "Xu hướng SLI"
+
+msgid "Per SLA, time-weighted across its services; dashed line = SLO"
+msgstr "Theo SLA, trọng số theo thời gian trên các dịch vụ của nó; đường nét đứt = SLO"
+
+msgid "SLI heatmap"
+msgstr "Bản đồ nhiệt SLI"
+
+msgid "Each cell is one period of one service, compared with the SLO of its SLA"
+msgstr "Mỗi ô là một chu kỳ của một dịch vụ, so với SLO của SLA tương ứng"
+
+msgid "No downtime in the selected period."
+msgstr "Không có thời gian down trong chu kỳ đã chọn."
+
+msgid "Error budget used"
+msgstr "Ngân sách lỗi đã dùng"
+
+msgid "Downtime as a share of what the SLO allows; marker = 100%"
+msgstr "Thời gian down theo tỷ lệ mức SLO cho phép; vạch = 100%"
+
+msgid "Top downtime"
+msgstr "Down nhiều nhất"
+
+msgid "Services with the most downtime in the selected period"
+msgstr "Các dịch vụ có thời gian down nhiều nhất trong chu kỳ đã chọn"
+
+#. Mean time to recover, abbreviation (table column)
+msgid "MTTR"
+msgstr "MTTR"
+
+#. table column with a sparkline
+msgid "Trend"
+msgstr "Xu hướng"
+
+msgid "Click a service to open its SLA report"
+msgstr "Nhấp vào một dịch vụ để mở báo cáo SLA của nó"
+
+msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
+msgstr "Không có SLA nào đang bật khớp với bộ lọc. Chọn SLA, dịch vụ, host hoặc thẻ khác trong bộ lọc phía trên."
+
+msgid "No service matches the filter."
+msgstr "Không có dịch vụ nào khớp với bộ lọc."
+
+msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
+msgstr "Quá nhiều chu kỳ cho khoảng đã chọn: đang hiển thị %1$s chu kỳ cuối. Hãy nhóm theo chu kỳ dài hơn hoặc chọn khoảng ngắn hơn."
+
+msgid "SLA dashboard"
+msgstr "Bảng điều khiển SLA"

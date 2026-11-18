@@ -1,0 +1,116 @@
+# SLA dashboard (módulo do Zabbix 8.0): textos que o domínio "frontend" do core não tem.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: zh_TW\n"
+
+#. days, short (2d)
+msgid "%1$sd"
+msgstr "%1$sd"
+
+#. hours, short (5h)
+msgid "%1$sh"
+msgstr "%1$sh"
+
+#. minutes, short (30m)
+msgid "%1$sm"
+msgstr "%1$sm"
+
+#. seconds, short (10s)
+msgid "%1$ss"
+msgstr "%1$ss"
+
+msgid "No downtime"
+msgstr "無斷線"
+
+msgid "Downtime within SLO"
+msgstr "斷線在 SLO 範圍內"
+
+msgid "Below SLO"
+msgstr "低於 SLO"
+
+msgid "Overall SLI"
+msgstr "整體 SLI"
+
+msgid "Time-weighted across %1$s services"
+msgstr "按時間加權，共 %1$s 個服務"
+
+msgid "Services meeting SLO"
+msgstr "達到 SLO 的服務"
+
+msgid "%1$s below SLO"
+msgstr "%1$s 個低於 SLO"
+
+msgid "All within SLO"
+msgstr "全部在 SLO 範圍內"
+
+msgid "Incidents"
+msgstr "事件"
+
+msgid "%1$s ongoing now"
+msgstr "%1$s 個正在進行"
+
+msgid "None ongoing"
+msgstr "無進行中事件"
+
+msgid "Mean time to recover"
+msgstr "平均復原時間"
+
+msgid "MTTR, resolved incidents"
+msgstr "MTTR，已解決事件"
+
+msgid "SLA compliance"
+msgstr "SLA 合規"
+
+msgid "%1$s services"
+msgstr "%1$s 個服務"
+
+msgid "SLI trend"
+msgstr "SLI 趨勢"
+
+msgid "Per SLA, time-weighted across its services; dashed line = SLO"
+msgstr "依 SLA，在其服務上按時間加權；虛線 = SLO"
+
+msgid "SLI heatmap"
+msgstr "SLI 熱圖"
+
+msgid "Each cell is one period of one service, compared with the SLO of its SLA"
+msgstr "每個儲存格是一個服務的一個期間，與其 SLA 的 SLO 比較"
+
+msgid "No downtime in the selected period."
+msgstr "所選期間內無斷線。"
+
+msgid "Error budget used"
+msgstr "已用錯誤預算"
+
+msgid "Downtime as a share of what the SLO allows; marker = 100%"
+msgstr "斷線占 SLO 允許值的比例；標記 = 100%"
+
+msgid "Top downtime"
+msgstr "斷線最多"
+
+msgid "Services with the most downtime in the selected period"
+msgstr "所選期間內斷線最多的服務"
+
+#. Mean time to recover, abbreviation (table column)
+msgid "MTTR"
+msgstr "MTTR"
+
+#. table column with a sparkline
+msgid "Trend"
+msgstr "趨勢"
+
+msgid "Click a service to open its SLA report"
+msgstr "點擊服務以開啟其 SLA 報表"
+
+msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
+msgstr "沒有已啟用的 SLA 符合篩選條件。請在上方篩選器中選擇其他 SLA、服務、主機或標籤。"
+
+msgid "No service matches the filter."
+msgstr "沒有服務符合篩選條件。"
+
+msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
+msgstr "所選範圍的期間過多：僅顯示最近 %1$s 個。請按更長的期間分組或選擇更短的範圍。"
+
+msgid "SLA dashboard"
+msgstr "SLA 儀表板"

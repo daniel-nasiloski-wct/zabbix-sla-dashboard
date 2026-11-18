@@ -1,0 +1,116 @@
+# SLA dashboard (módulo do Zabbix 8.0): textos que o domínio "frontend" do core não tem.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: fa\n"
+
+#. days, short (2d)
+msgid "%1$sd"
+msgstr "%1$s روز"
+
+#. hours, short (5h)
+msgid "%1$sh"
+msgstr "%1$s ساعت"
+
+#. minutes, short (30m)
+msgid "%1$sm"
+msgstr "%1$s دقیقه"
+
+#. seconds, short (10s)
+msgid "%1$ss"
+msgstr "%1$s ثانیه"
+
+msgid "No downtime"
+msgstr "بدون از کار افتادگی"
+
+msgid "Downtime within SLO"
+msgstr "از کار افتادگی در محدوده SLO"
+
+msgid "Below SLO"
+msgstr "پایین‌تر از SLO"
+
+msgid "Overall SLI"
+msgstr "SLI کلی"
+
+msgid "Time-weighted across %1$s services"
+msgstr "وزن‌دهی زمانی در %1$s سرویس"
+
+msgid "Services meeting SLO"
+msgstr "سرویس‌های منطبق با SLO"
+
+msgid "%1$s below SLO"
+msgstr "%1$s پایین‌تر از SLO"
+
+msgid "All within SLO"
+msgstr "همه در محدوده SLO"
+
+msgid "Incidents"
+msgstr "رخدادها"
+
+msgid "%1$s ongoing now"
+msgstr "%1$s در حال جریان"
+
+msgid "None ongoing"
+msgstr "هیچ موردی در جریان نیست"
+
+msgid "Mean time to recover"
+msgstr "میانگین زمان بازیابی"
+
+msgid "MTTR, resolved incidents"
+msgstr "MTTR، رخدادهای حل‌شده"
+
+msgid "SLA compliance"
+msgstr "انطباق با SLA"
+
+msgid "%1$s services"
+msgstr "%1$s سرویس"
+
+msgid "SLI trend"
+msgstr "روند SLI"
+
+msgid "Per SLA, time-weighted across its services; dashed line = SLO"
+msgstr "برای هر SLA، وزن‌دهی زمانی در سرویس‌های آن؛ خط‌چین = SLO"
+
+msgid "SLI heatmap"
+msgstr "نقشه حرارتی SLI"
+
+msgid "Each cell is one period of one service, compared with the SLO of its SLA"
+msgstr "هر خانه یک دوره از یک سرویس است که با SLO مربوط به SLA آن مقایسه شده است"
+
+msgid "No downtime in the selected period."
+msgstr "در دوره انتخاب‌شده از کار افتادگی وجود ندارد."
+
+msgid "Error budget used"
+msgstr "بودجه خطای مصرف‌شده"
+
+msgid "Downtime as a share of what the SLO allows; marker = 100%"
+msgstr "از کار افتادگی به نسبت مقدار مجاز SLO؛ نشانگر = 100%"
+
+msgid "Top downtime"
+msgstr "بیشترین از کار افتادگی"
+
+msgid "Services with the most downtime in the selected period"
+msgstr "سرویس‌هایی با بیشترین از کار افتادگی در دوره انتخاب‌شده"
+
+#. Mean time to recover, abbreviation (table column)
+msgid "MTTR"
+msgstr "MTTR"
+
+#. table column with a sparkline
+msgid "Trend"
+msgstr "روند"
+
+msgid "Click a service to open its SLA report"
+msgstr "برای باز کردن گزارش SLA یک سرویس، روی آن کلیک کنید"
+
+msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
+msgstr "هیچ SLA فعالی با فیلتر مطابقت ندارد. SLAها، سرویس‌ها، میزبان‌ها یا برچسب‌های دیگری را در فیلتر بالا انتخاب کنید."
+
+msgid "No service matches the filter."
+msgstr "هیچ سرویسی با فیلتر مطابقت ندارد."
+
+msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
+msgstr "تعداد دوره‌ها برای بازه انتخاب‌شده بیش از حد است: آخرین %1$s دوره نمایش داده می‌شود. بر اساس دوره طولانی‌تر گروه‌بندی کنید یا بازه کوتاه‌تری انتخاب کنید."
+
+msgid "SLA dashboard"
+msgstr "داشبورد SLA"

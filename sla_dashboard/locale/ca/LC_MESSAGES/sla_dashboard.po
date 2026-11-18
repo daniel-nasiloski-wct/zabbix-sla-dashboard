@@ -1,0 +1,116 @@
+# SLA dashboard (módulo do Zabbix 8.0): textos que o domínio "frontend" do core não tem.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: ca\n"
+
+#. days, short (2d)
+msgid "%1$sd"
+msgstr "%1$sd"
+
+#. hours, short (5h)
+msgid "%1$sh"
+msgstr "%1$sh"
+
+#. minutes, short (30m)
+msgid "%1$sm"
+msgstr "%1$sm"
+
+#. seconds, short (10s)
+msgid "%1$ss"
+msgstr "%1$ss"
+
+msgid "No downtime"
+msgstr "Sense temps d'inactivitat"
+
+msgid "Downtime within SLO"
+msgstr "Inactivitat dins de l'SLO"
+
+msgid "Below SLO"
+msgstr "Per sota de l'SLO"
+
+msgid "Overall SLI"
+msgstr "SLI global"
+
+msgid "Time-weighted across %1$s services"
+msgstr "Ponderat per temps en %1$s serveis"
+
+msgid "Services meeting SLO"
+msgstr "Serveis que compleixen l'SLO"
+
+msgid "%1$s below SLO"
+msgstr "%1$s per sota de l'SLO"
+
+msgid "All within SLO"
+msgstr "Tots dins de l'SLO"
+
+msgid "Incidents"
+msgstr "Incidents"
+
+msgid "%1$s ongoing now"
+msgstr "%1$s en curs ara"
+
+msgid "None ongoing"
+msgstr "Cap en curs"
+
+msgid "Mean time to recover"
+msgstr "Temps mitjà de recuperació"
+
+msgid "MTTR, resolved incidents"
+msgstr "MTTR, incidents resolts"
+
+msgid "SLA compliance"
+msgstr "Compliment de l'SLA"
+
+msgid "%1$s services"
+msgstr "%1$s serveis"
+
+msgid "SLI trend"
+msgstr "Tendència de l'SLI"
+
+msgid "Per SLA, time-weighted across its services; dashed line = SLO"
+msgstr "Per SLA, ponderat per temps en els seus serveis; línia discontínua = SLO"
+
+msgid "SLI heatmap"
+msgstr "Mapa de calor de l'SLI"
+
+msgid "Each cell is one period of one service, compared with the SLO of its SLA"
+msgstr "Cada cel·la és un període d'un servei, comparat amb l'SLO del seu SLA"
+
+msgid "No downtime in the selected period."
+msgstr "Sense temps d'inactivitat en el període seleccionat."
+
+msgid "Error budget used"
+msgstr "Pressupost d'errors utilitzat"
+
+msgid "Downtime as a share of what the SLO allows; marker = 100%"
+msgstr "Inactivitat com a proporció del que permet l'SLO; marcador = 100%"
+
+msgid "Top downtime"
+msgstr "Més inactivitat"
+
+msgid "Services with the most downtime in the selected period"
+msgstr "Serveis amb més temps d'inactivitat en el període seleccionat"
+
+#. Mean time to recover, abbreviation (table column)
+msgid "MTTR"
+msgstr "MTTR"
+
+#. table column with a sparkline
+msgid "Trend"
+msgstr "Tendència"
+
+msgid "Click a service to open its SLA report"
+msgstr "Feu clic en un servei per obrir el seu informe SLA"
+
+msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
+msgstr "Cap SLA habilitat coincideix amb el filtre. Trieu altres SLA, serveis, equips o etiquetes al filtre de dalt."
+
+msgid "No service matches the filter."
+msgstr "Cap servei coincideix amb el filtre."
+
+msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
+msgstr "Massa períodes per a l'interval seleccionat: es mostren els darrers %1$s. Agrupeu per un període més llarg o trieu un interval més curt."
+
+msgid "SLA dashboard"
+msgstr "Tauler d'SLA"

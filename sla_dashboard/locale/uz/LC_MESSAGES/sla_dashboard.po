@@ -1,0 +1,116 @@
+# SLA dashboard (módulo do Zabbix 8.0): textos que o domínio "frontend" do core não tem.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: uz\n"
+
+#. days, short (2d)
+msgid "%1$sd"
+msgstr "%1$s k"
+
+#. hours, short (5h)
+msgid "%1$sh"
+msgstr "%1$s soat"
+
+#. minutes, short (30m)
+msgid "%1$sm"
+msgstr "%1$s daq"
+
+#. seconds, short (10s)
+msgid "%1$ss"
+msgstr "%1$s son"
+
+msgid "No downtime"
+msgstr "Uzilishlar yo'q"
+
+msgid "Downtime within SLO"
+msgstr "Uzilish SLO doirasida"
+
+msgid "Below SLO"
+msgstr "SLO dan past"
+
+msgid "Overall SLI"
+msgstr "Umumiy SLI"
+
+msgid "Time-weighted across %1$s services"
+msgstr "%1$s ta xizmat bo'yicha vaqtga ko'ra o'lchangan"
+
+msgid "Services meeting SLO"
+msgstr "SLO ga mos xizmatlar"
+
+msgid "%1$s below SLO"
+msgstr "%1$s ta SLO dan past"
+
+msgid "All within SLO"
+msgstr "Hammasi SLO doirasida"
+
+msgid "Incidents"
+msgstr "Hodisalar"
+
+msgid "%1$s ongoing now"
+msgstr "Hozir %1$s ta davom etmoqda"
+
+msgid "None ongoing"
+msgstr "Davom etayotgani yo'q"
+
+msgid "Mean time to recover"
+msgstr "O'rtacha tiklanish vaqti"
+
+msgid "MTTR, resolved incidents"
+msgstr "MTTR, hal qilingan hodisalar"
+
+msgid "SLA compliance"
+msgstr "SLA ga muvofiqlik"
+
+msgid "%1$s services"
+msgstr "%1$s ta xizmat"
+
+msgid "SLI trend"
+msgstr "SLI trendi"
+
+msgid "Per SLA, time-weighted across its services; dashed line = SLO"
+msgstr "Har bir SLA bo'yicha, uning xizmatlarida vaqtga ko'ra o'lchangan; uzuq chiziq = SLO"
+
+msgid "SLI heatmap"
+msgstr "SLI issiqlik xaritasi"
+
+msgid "Each cell is one period of one service, compared with the SLO of its SLA"
+msgstr "Har bir katak bitta xizmatning bitta davri bo'lib, uning SLA si SLO si bilan solishtiriladi"
+
+msgid "No downtime in the selected period."
+msgstr "Tanlangan davrda uzilishlar yo'q."
+
+msgid "Error budget used"
+msgstr "Sarflangan xatolik byudjeti"
+
+msgid "Downtime as a share of what the SLO allows; marker = 100%"
+msgstr "Uzilishning SLO ruxsat bergan miqdorga nisbati; belgi = 100%"
+
+msgid "Top downtime"
+msgstr "Eng ko'p uzilish"
+
+msgid "Services with the most downtime in the selected period"
+msgstr "Tanlangan davrda eng ko'p uzilgan xizmatlar"
+
+#. Mean time to recover, abbreviation (table column)
+msgid "MTTR"
+msgstr "MTTR"
+
+#. table column with a sparkline
+msgid "Trend"
+msgstr "Trend"
+
+msgid "Click a service to open its SLA report"
+msgstr "SLA hisobotini ochish uchun xizmatni bosing"
+
+msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
+msgstr "Filtrga mos yoqilgan SLA yo'q. Yuqoridagi filtrda boshqa SLA, xizmat, xost yoki teglarni tanlang."
+
+msgid "No service matches the filter."
+msgstr "Filtrga mos xizmat yo'q."
+
+msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
+msgstr "Tanlangan oraliq uchun davrlar juda ko'p: oxirgi %1$s tasi ko'rsatilmoqda. Uzunroq davr bo'yicha guruhlang yoki qisqaroq oraliqni tanlang."
+
+msgid "SLA dashboard"
+msgstr "SLA paneli"

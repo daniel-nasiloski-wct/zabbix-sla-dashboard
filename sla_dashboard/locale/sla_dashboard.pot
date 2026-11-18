@@ -1,0 +1,115 @@
+# SLA dashboard (módulo do Zabbix 8.0): textos que o domínio "frontend" do core não tem.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. days, short (2d)
+msgid "%1$sd"
+msgstr ""
+
+#. hours, short (5h)
+msgid "%1$sh"
+msgstr ""
+
+#. minutes, short (30m)
+msgid "%1$sm"
+msgstr ""
+
+#. seconds, short (10s)
+msgid "%1$ss"
+msgstr ""
+
+msgid "No downtime"
+msgstr ""
+
+msgid "Downtime within SLO"
+msgstr ""
+
+msgid "Below SLO"
+msgstr ""
+
+msgid "Overall SLI"
+msgstr ""
+
+msgid "Time-weighted across %1$s services"
+msgstr ""
+
+msgid "Services meeting SLO"
+msgstr ""
+
+msgid "%1$s below SLO"
+msgstr ""
+
+msgid "All within SLO"
+msgstr ""
+
+msgid "Incidents"
+msgstr ""
+
+msgid "%1$s ongoing now"
+msgstr ""
+
+msgid "None ongoing"
+msgstr ""
+
+msgid "Mean time to recover"
+msgstr ""
+
+msgid "MTTR, resolved incidents"
+msgstr ""
+
+msgid "SLA compliance"
+msgstr ""
+
+msgid "%1$s services"
+msgstr ""
+
+msgid "SLI trend"
+msgstr ""
+
+msgid "Per SLA, time-weighted across its services; dashed line = SLO"
+msgstr ""
+
+msgid "SLI heatmap"
+msgstr ""
+
+msgid "Each cell is one period of one service, compared with the SLO of its SLA"
+msgstr ""
+
+msgid "No downtime in the selected period."
+msgstr ""
+
+msgid "Error budget used"
+msgstr ""
+
+msgid "Downtime as a share of what the SLO allows; marker = 100%"
+msgstr ""
+
+msgid "Top downtime"
+msgstr ""
+
+msgid "Services with the most downtime in the selected period"
+msgstr ""
+
+#. Mean time to recover, abbreviation (table column)
+msgid "MTTR"
+msgstr ""
+
+#. table column with a sparkline
+msgid "Trend"
+msgstr ""
+
+msgid "Click a service to open its SLA report"
+msgstr ""
+
+msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
+msgstr ""
+
+msgid "No service matches the filter."
+msgstr ""
+
+msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
+msgstr ""
+
+msgid "SLA dashboard"
+msgstr ""

@@ -1,0 +1,116 @@
+# SLA dashboard (módulo do Zabbix 8.0): textos que o domínio "frontend" do core não tem.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: he\n"
+
+#. days, short (2d)
+msgid "%1$sd"
+msgstr "%1$sd"
+
+#. hours, short (5h)
+msgid "%1$sh"
+msgstr "%1$sh"
+
+#. minutes, short (30m)
+msgid "%1$sm"
+msgstr "%1$sm"
+
+#. seconds, short (10s)
+msgid "%1$ss"
+msgstr "%1$s שנ׳"
+
+msgid "No downtime"
+msgstr "אין זמן אי פעילות"
+
+msgid "Downtime within SLO"
+msgstr "זמן אי פעילות בתוך ה-SLO"
+
+msgid "Below SLO"
+msgstr "מתחת ל-SLO"
+
+msgid "Overall SLI"
+msgstr "SLI כולל"
+
+msgid "Time-weighted across %1$s services"
+msgstr "משוקלל לפי זמן על פני %1$s שירותים"
+
+msgid "Services meeting SLO"
+msgstr "שירותים שעומדים ב-SLO"
+
+msgid "%1$s below SLO"
+msgstr "%1$s מתחת ל-SLO"
+
+msgid "All within SLO"
+msgstr "הכול בתוך ה-SLO"
+
+msgid "Incidents"
+msgstr "אירועים"
+
+msgid "%1$s ongoing now"
+msgstr "%1$s פעילים כעת"
+
+msgid "None ongoing"
+msgstr "אין פעילים"
+
+msgid "Mean time to recover"
+msgstr "זמן ממוצע להתאוששות"
+
+msgid "MTTR, resolved incidents"
+msgstr "MTTR, אירועים שנפתרו"
+
+msgid "SLA compliance"
+msgstr "עמידה ב-SLA"
+
+msgid "%1$s services"
+msgstr "%1$s שירותים"
+
+msgid "SLI trend"
+msgstr "מגמת SLI"
+
+msgid "Per SLA, time-weighted across its services; dashed line = SLO"
+msgstr "לכל SLA, משוקלל לפי זמן על פני השירותים שלו; קו מקווקו = SLO"
+
+msgid "SLI heatmap"
+msgstr "מפת חום של SLI"
+
+msgid "Each cell is one period of one service, compared with the SLO of its SLA"
+msgstr "כל תא הוא תקופה אחת של שירות אחד, בהשוואה ל-SLO של ה-SLA שלו"
+
+msgid "No downtime in the selected period."
+msgstr "אין זמן אי פעילות בתקופה שנבחרה."
+
+msgid "Error budget used"
+msgstr "תקציב שגיאה שנוצל"
+
+msgid "Downtime as a share of what the SLO allows; marker = 100%"
+msgstr "זמן אי פעילות כחלק ממה שה-SLO מתיר; סמן = 100%"
+
+msgid "Top downtime"
+msgstr "הכי הרבה אי פעילות"
+
+msgid "Services with the most downtime in the selected period"
+msgstr "שירותים עם זמן אי הפעילות הרב ביותר בתקופה שנבחרה"
+
+#. Mean time to recover, abbreviation (table column)
+msgid "MTTR"
+msgstr "MTTR"
+
+#. table column with a sparkline
+msgid "Trend"
+msgstr "מגמה"
+
+msgid "Click a service to open its SLA report"
+msgstr "לחצו על שירות כדי לפתוח את דוח ה-SLA שלו"
+
+msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
+msgstr "אין SLA מופעל שתואם את המסנן. בחרו SLA, שירותים, מארחים או תגיות אחרים במסנן שלמעלה."
+
+msgid "No service matches the filter."
+msgstr "אין שירות שתואם את המסנן."
+
+msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
+msgstr "יותר מדי תקופות לטווח שנבחר: מוצגות %1$s האחרונות. קבצו לפי תקופה ארוכה יותר או בחרו טווח קצר יותר."
+
+msgid "SLA dashboard"
+msgstr "לוח מחוונים SLA"

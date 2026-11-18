@@ -1,0 +1,116 @@
+# SLA dashboard (módulo do Zabbix 8.0): textos que o domínio "frontend" do core não tem.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: ka\n"
+
+#. days, short (2d)
+msgid "%1$sd"
+msgstr "%1$s დღ"
+
+#. hours, short (5h)
+msgid "%1$sh"
+msgstr "%1$s სთ"
+
+#. minutes, short (30m)
+msgid "%1$sm"
+msgstr "%1$s წთ"
+
+#. seconds, short (10s)
+msgid "%1$ss"
+msgstr "%1$s წმ"
+
+msgid "No downtime"
+msgstr "გათიშვა არ ყოფილა"
+
+msgid "Downtime within SLO"
+msgstr "გათიშვა SLO-ს ფარგლებში"
+
+msgid "Below SLO"
+msgstr "SLO-ზე დაბლა"
+
+msgid "Overall SLI"
+msgstr "საერთო SLI"
+
+msgid "Time-weighted across %1$s services"
+msgstr "დროით შეწონილი, %1$s სერვისზე"
+
+msgid "Services meeting SLO"
+msgstr "SLO-ს შესაბამისი სერვისები"
+
+msgid "%1$s below SLO"
+msgstr "%1$s SLO-ზე დაბლა"
+
+msgid "All within SLO"
+msgstr "ყველა SLO-ს ფარგლებში"
+
+msgid "Incidents"
+msgstr "ინციდენტები"
+
+msgid "%1$s ongoing now"
+msgstr "%1$s მიმდინარეა ახლა"
+
+msgid "None ongoing"
+msgstr "მიმდინარე არ არის"
+
+msgid "Mean time to recover"
+msgstr "აღდგენის საშუალო დრო"
+
+msgid "MTTR, resolved incidents"
+msgstr "MTTR, გადაწყვეტილი ინციდენტები"
+
+msgid "SLA compliance"
+msgstr "SLA-ს შესაბამისობა"
+
+msgid "%1$s services"
+msgstr "%1$s სერვისი"
+
+msgid "SLI trend"
+msgstr "SLI-ის ტრენდი"
+
+msgid "Per SLA, time-weighted across its services; dashed line = SLO"
+msgstr "SLA-ების მიხედვით, მისი სერვისების დროით შეწონილი; წყვეტილი ხაზი = SLO"
+
+msgid "SLI heatmap"
+msgstr "SLI-ის სითბური რუკა"
+
+msgid "Each cell is one period of one service, compared with the SLO of its SLA"
+msgstr "თითოეული უჯრა ერთი სერვისის ერთი პერიოდია, შედარებული მისი SLA-ს SLO-სთან"
+
+msgid "No downtime in the selected period."
+msgstr "არჩეულ პერიოდში გათიშვა არ ყოფილა."
+
+msgid "Error budget used"
+msgstr "გამოყენებული შეცდომის ბიუჯეტი"
+
+msgid "Downtime as a share of what the SLO allows; marker = 100%"
+msgstr "გათიშვა SLO-ით დაშვებულის წილად; მარკერი = 100%"
+
+msgid "Top downtime"
+msgstr "ყველაზე მეტი გათიშვა"
+
+msgid "Services with the most downtime in the selected period"
+msgstr "სერვისები, რომლებსაც არჩეულ პერიოდში ყველაზე მეტი გათიშვა ჰქონდათ"
+
+#. Mean time to recover, abbreviation (table column)
+msgid "MTTR"
+msgstr "MTTR"
+
+#. table column with a sparkline
+msgid "Trend"
+msgstr "ტრენდი"
+
+msgid "Click a service to open its SLA report"
+msgstr "დააწკაპუნეთ სერვისზე მისი SLA ანგარიშის გასახსნელად"
+
+msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
+msgstr "ფილტრს არც ერთი ჩართული SLA არ შეესაბამება. ზემოთ ფილტრში აირჩიეთ სხვა SLA-ები, სერვისები, ჰოსტები ან ჭდეები."
+
+msgid "No service matches the filter."
+msgstr "ფილტრს არც ერთი სერვისი არ შეესაბამება."
+
+msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
+msgstr "არჩეული დიაპაზონისთვის ძალიან ბევრი პერიოდია: ნაჩვენებია ბოლო %1$s. დააჯგუფეთ უფრო გრძელი პერიოდით ან აირჩიეთ უფრო მოკლე დიაპაზონი."
+
+msgid "SLA dashboard"
+msgstr "SLA დაფა"

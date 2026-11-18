@@ -1,0 +1,116 @@
+# SLA dashboard (módulo do Zabbix 8.0): textos que o domínio "frontend" do core não tem.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: fi\n"
+
+#. days, short (2d)
+msgid "%1$sd"
+msgstr "%1$s pv"
+
+#. hours, short (5h)
+msgid "%1$sh"
+msgstr "%1$s h"
+
+#. minutes, short (30m)
+msgid "%1$sm"
+msgstr "%1$s min"
+
+#. seconds, short (10s)
+msgid "%1$ss"
+msgstr "%1$s s"
+
+msgid "No downtime"
+msgstr "Ei katkoja"
+
+msgid "Downtime within SLO"
+msgstr "Katkot SLO:n rajoissa"
+
+msgid "Below SLO"
+msgstr "Alle SLO:n"
+
+msgid "Overall SLI"
+msgstr "Kokonais-SLI"
+
+msgid "Time-weighted across %1$s services"
+msgstr "Aikapainotettu %1$s palvelun yli"
+
+msgid "Services meeting SLO"
+msgstr "SLO:n täyttävät palvelut"
+
+msgid "%1$s below SLO"
+msgstr "%1$s alle SLO:n"
+
+msgid "All within SLO"
+msgstr "Kaikki SLO:n rajoissa"
+
+msgid "Incidents"
+msgstr "Häiriöt"
+
+msgid "%1$s ongoing now"
+msgstr "%1$s käynnissä nyt"
+
+msgid "None ongoing"
+msgstr "Ei käynnissä olevia"
+
+msgid "Mean time to recover"
+msgstr "Keskimääräinen palautumisaika"
+
+msgid "MTTR, resolved incidents"
+msgstr "MTTR, ratkaistut häiriöt"
+
+msgid "SLA compliance"
+msgstr "SLA:n täyttyminen"
+
+msgid "%1$s services"
+msgstr "%1$s palvelua"
+
+msgid "SLI trend"
+msgstr "SLI-trendi"
+
+msgid "Per SLA, time-weighted across its services; dashed line = SLO"
+msgstr "SLA-kohtaisesti, aikapainotettu sen palvelujen yli; katkoviiva = SLO"
+
+msgid "SLI heatmap"
+msgstr "SLI-lämpökartta"
+
+msgid "Each cell is one period of one service, compared with the SLO of its SLA"
+msgstr "Jokainen solu on yhden palvelun yksi jakso verrattuna sen SLA:n SLO:hon"
+
+msgid "No downtime in the selected period."
+msgstr "Ei katkoja valitulla jaksolla."
+
+msgid "Error budget used"
+msgstr "Käytetty virhebudjetti"
+
+msgid "Downtime as a share of what the SLO allows; marker = 100%"
+msgstr "Katkot osuutena siitä, mitä SLO sallii; merkki = 100%"
+
+msgid "Top downtime"
+msgstr "Eniten katkoja"
+
+msgid "Services with the most downtime in the selected period"
+msgstr "Palvelut, joilla on eniten katkoja valitulla jaksolla"
+
+#. Mean time to recover, abbreviation (table column)
+msgid "MTTR"
+msgstr "MTTR"
+
+#. table column with a sparkline
+msgid "Trend"
+msgstr "Trendi"
+
+msgid "Click a service to open its SLA report"
+msgstr "Avaa palvelun SLA-raportti napsauttamalla sitä"
+
+msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
+msgstr "Mikään käytössä oleva SLA ei vastaa suodatinta. Valitse yllä olevasta suodattimesta muut SLA:t, palvelut, isännät tai tagit."
+
+msgid "No service matches the filter."
+msgstr "Mikään palvelu ei vastaa suodatinta."
+
+msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
+msgstr "Liikaa jaksoja valitulle aikavälille: näytetään viimeiset %1$s. Ryhmittele pidemmän jakson mukaan tai valitse lyhyempi aikaväli."
+
+msgid "SLA dashboard"
+msgstr "SLA-koontinäyttö"

@@ -1,0 +1,116 @@
+# SLA dashboard (módulo do Zabbix 8.0): textos que o domínio "frontend" do core não tem.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: sv_SE\n"
+
+#. days, short (2d)
+msgid "%1$sd"
+msgstr "%1$sd"
+
+#. hours, short (5h)
+msgid "%1$sh"
+msgstr "%1$st"
+
+#. minutes, short (30m)
+msgid "%1$sm"
+msgstr "%1$sm"
+
+#. seconds, short (10s)
+msgid "%1$ss"
+msgstr "%1$ss"
+
+msgid "No downtime"
+msgstr "Ingen stilleståndstid"
+
+msgid "Downtime within SLO"
+msgstr "Stilleståndstid inom SLO"
+
+msgid "Below SLO"
+msgstr "Under SLO"
+
+msgid "Overall SLI"
+msgstr "Total SLI"
+
+msgid "Time-weighted across %1$s services"
+msgstr "Tidsviktad över %1$s tjänster"
+
+msgid "Services meeting SLO"
+msgstr "Tjänster som uppfyller SLO"
+
+msgid "%1$s below SLO"
+msgstr "%1$s under SLO"
+
+msgid "All within SLO"
+msgstr "Alla inom SLO"
+
+msgid "Incidents"
+msgstr "Incidenter"
+
+msgid "%1$s ongoing now"
+msgstr "%1$s pågår nu"
+
+msgid "None ongoing"
+msgstr "Inga pågående"
+
+msgid "Mean time to recover"
+msgstr "Genomsnittlig återställningstid"
+
+msgid "MTTR, resolved incidents"
+msgstr "MTTR, lösta incidenter"
+
+msgid "SLA compliance"
+msgstr "SLA-efterlevnad"
+
+msgid "%1$s services"
+msgstr "%1$s tjänster"
+
+msgid "SLI trend"
+msgstr "SLI-trend"
+
+msgid "Per SLA, time-weighted across its services; dashed line = SLO"
+msgstr "Per SLA, tidsviktad över dess tjänster; streckad linje = SLO"
+
+msgid "SLI heatmap"
+msgstr "SLI-värmekarta"
+
+msgid "Each cell is one period of one service, compared with the SLO of its SLA"
+msgstr "Varje cell är en period för en tjänst, jämförd med SLO för dess SLA"
+
+msgid "No downtime in the selected period."
+msgstr "Ingen stilleståndstid under vald period."
+
+msgid "Error budget used"
+msgstr "Använd felbudget"
+
+msgid "Downtime as a share of what the SLO allows; marker = 100%"
+msgstr "Stilleståndstid som andel av vad SLO tillåter; markör = 100%"
+
+msgid "Top downtime"
+msgstr "Mest stilleståndstid"
+
+msgid "Services with the most downtime in the selected period"
+msgstr "Tjänster med mest stilleståndstid under vald period"
+
+#. Mean time to recover, abbreviation (table column)
+msgid "MTTR"
+msgstr "MTTR"
+
+#. table column with a sparkline
+msgid "Trend"
+msgstr "Trend"
+
+msgid "Click a service to open its SLA report"
+msgstr "Klicka på en tjänst för att öppna dess SLA-rapport"
+
+msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
+msgstr "Ingen aktiverad SLA matchar filtret. Välj andra SLA:er, tjänster, värdar eller taggar i filtret ovan."
+
+msgid "No service matches the filter."
+msgstr "Ingen tjänst matchar filtret."
+
+msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
+msgstr "För många perioder för valt intervall: visar de senaste %1$s. Gruppera efter en längre period eller välj ett kortare intervall."
+
+msgid "SLA dashboard"
+msgstr "SLA-instrumentpanel"

@@ -1,0 +1,116 @@
+# SLA dashboard (módulo do Zabbix 8.0): textos que o domínio "frontend" do core não tem.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: el\n"
+
+#. days, short (2d)
+msgid "%1$sd"
+msgstr "%1$sη"
+
+#. hours, short (5h)
+msgid "%1$sh"
+msgstr "%1$sω"
+
+#. minutes, short (30m)
+msgid "%1$sm"
+msgstr "%1$sλ"
+
+#. seconds, short (10s)
+msgid "%1$ss"
+msgstr "%1$sδ"
+
+msgid "No downtime"
+msgstr "Χωρίς μη διαθεσιμότητα"
+
+msgid "Downtime within SLO"
+msgstr "Μη διαθεσιμότητα εντός SLO"
+
+msgid "Below SLO"
+msgstr "Κάτω από το SLO"
+
+msgid "Overall SLI"
+msgstr "Συνολικό SLI"
+
+msgid "Time-weighted across %1$s services"
+msgstr "Χρονικά σταθμισμένο σε %1$s υπηρεσίες"
+
+msgid "Services meeting SLO"
+msgstr "Υπηρεσίες που τηρούν το SLO"
+
+msgid "%1$s below SLO"
+msgstr "%1$s κάτω από το SLO"
+
+msgid "All within SLO"
+msgstr "Όλες εντός SLO"
+
+msgid "Incidents"
+msgstr "Περιστατικά"
+
+msgid "%1$s ongoing now"
+msgstr "%1$s σε εξέλιξη τώρα"
+
+msgid "None ongoing"
+msgstr "Κανένα σε εξέλιξη"
+
+msgid "Mean time to recover"
+msgstr "Μέσος χρόνος αποκατάστασης"
+
+msgid "MTTR, resolved incidents"
+msgstr "MTTR, επιλυμένα περιστατικά"
+
+msgid "SLA compliance"
+msgstr "Συμμόρφωση SLA"
+
+msgid "%1$s services"
+msgstr "%1$s υπηρεσίες"
+
+msgid "SLI trend"
+msgstr "Τάση SLI"
+
+msgid "Per SLA, time-weighted across its services; dashed line = SLO"
+msgstr "Ανά SLA, χρονικά σταθμισμένο στις υπηρεσίες του· διακεκομμένη γραμμή = SLO"
+
+msgid "SLI heatmap"
+msgstr "Θερμικός χάρτης SLI"
+
+msgid "Each cell is one period of one service, compared with the SLO of its SLA"
+msgstr "Κάθε κελί είναι μία περίοδος μίας υπηρεσίας, σε σύγκριση με το SLO του SLA της"
+
+msgid "No downtime in the selected period."
+msgstr "Καμία μη διαθεσιμότητα στην επιλεγμένη περίοδο."
+
+msgid "Error budget used"
+msgstr "Χρησιμοποιημένος προϋπολογισμός σφαλμάτων"
+
+msgid "Downtime as a share of what the SLO allows; marker = 100%"
+msgstr "Μη διαθεσιμότητα ως ποσοστό του επιτρεπόμενου από το SLO· δείκτης = 100%"
+
+msgid "Top downtime"
+msgstr "Περισσότερη μη διαθεσιμότητα"
+
+msgid "Services with the most downtime in the selected period"
+msgstr "Υπηρεσίες με τη μεγαλύτερη μη διαθεσιμότητα στην επιλεγμένη περίοδο"
+
+#. Mean time to recover, abbreviation (table column)
+msgid "MTTR"
+msgstr "MTTR"
+
+#. table column with a sparkline
+msgid "Trend"
+msgstr "Τάση"
+
+msgid "Click a service to open its SLA report"
+msgstr "Κάντε κλικ σε μια υπηρεσία για να ανοίξετε την αναφορά SLA της"
+
+msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
+msgstr "Κανένα ενεργοποιημένο SLA δεν ταιριάζει με το φίλτρο. Επιλέξτε άλλα SLA, υπηρεσίες, hosts ή tags στο παραπάνω φίλτρο."
+
+msgid "No service matches the filter."
+msgstr "Καμία υπηρεσία δεν ταιριάζει με το φίλτρο."
+
+msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
+msgstr "Πάρα πολλές περίοδοι για το επιλεγμένο εύρος: εμφανίζονται οι τελευταίες %1$s. Ομαδοποιήστε ανά μεγαλύτερη περίοδο ή επιλέξτε μικρότερο εύρος."
+
+msgid "SLA dashboard"
+msgstr "Πίνακας ελέγχου SLA"

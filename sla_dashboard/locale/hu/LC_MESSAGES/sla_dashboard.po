@@ -1,0 +1,116 @@
+# SLA dashboard (módulo do Zabbix 8.0): textos que o domínio "frontend" do core não tem.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: hu\n"
+
+#. days, short (2d)
+msgid "%1$sd"
+msgstr "%1$sn"
+
+#. hours, short (5h)
+msgid "%1$sh"
+msgstr "%1$só"
+
+#. minutes, short (30m)
+msgid "%1$sm"
+msgstr "%1$sp"
+
+#. seconds, short (10s)
+msgid "%1$ss"
+msgstr "%1$smp"
+
+msgid "No downtime"
+msgstr "Nincs kiesés"
+
+msgid "Downtime within SLO"
+msgstr "Kiesés az SLO-n belül"
+
+msgid "Below SLO"
+msgstr "SLO alatt"
+
+msgid "Overall SLI"
+msgstr "Teljes SLI"
+
+msgid "Time-weighted across %1$s services"
+msgstr "Időarányosan, %1$s szolgáltatásra"
+
+msgid "Services meeting SLO"
+msgstr "SLO-t teljesítő szolgáltatások"
+
+msgid "%1$s below SLO"
+msgstr "%1$s SLO alatt"
+
+msgid "All within SLO"
+msgstr "Mind az SLO-n belül"
+
+msgid "Incidents"
+msgstr "Incidensek"
+
+msgid "%1$s ongoing now"
+msgstr "%1$s jelenleg is tart"
+
+msgid "None ongoing"
+msgstr "Nincs folyamatban"
+
+msgid "Mean time to recover"
+msgstr "Átlagos helyreállítási idő"
+
+msgid "MTTR, resolved incidents"
+msgstr "MTTR, megoldott incidensek"
+
+msgid "SLA compliance"
+msgstr "SLA-megfelelés"
+
+msgid "%1$s services"
+msgstr "%1$s szolgáltatás"
+
+msgid "SLI trend"
+msgstr "SLI trend"
+
+msgid "Per SLA, time-weighted across its services; dashed line = SLO"
+msgstr "SLA-nként, a szolgáltatásokra időarányosan; szaggatott vonal = SLO"
+
+msgid "SLI heatmap"
+msgstr "SLI hőtérkép"
+
+msgid "Each cell is one period of one service, compared with the SLO of its SLA"
+msgstr "Minden cella egy szolgáltatás egy időszaka, az SLA-ja szerinti SLO-hoz mérve"
+
+msgid "No downtime in the selected period."
+msgstr "Nincs kiesés a kiválasztott időszakban."
+
+msgid "Error budget used"
+msgstr "Felhasznált hibakeret"
+
+msgid "Downtime as a share of what the SLO allows; marker = 100%"
+msgstr "A kiesés az SLO által megengedett arányában; jelölő = 100%"
+
+msgid "Top downtime"
+msgstr "Legtöbb kiesés"
+
+msgid "Services with the most downtime in the selected period"
+msgstr "A kiválasztott időszakban legtöbb kiesést szenvedett szolgáltatások"
+
+#. Mean time to recover, abbreviation (table column)
+msgid "MTTR"
+msgstr "MTTR"
+
+#. table column with a sparkline
+msgid "Trend"
+msgstr "Trend"
+
+msgid "Click a service to open its SLA report"
+msgstr "Kattintson egy szolgáltatásra az SLA-jelentés megnyitásához"
+
+msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
+msgstr "Egyetlen engedélyezett SLA sem felel meg a szűrőnek. Válasszon más SLA-kat, szolgáltatásokat, hosztokat vagy címkéket a fenti szűrőben."
+
+msgid "No service matches the filter."
+msgstr "Egyetlen szolgáltatás sem felel meg a szűrőnek."
+
+msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
+msgstr "Túl sok időszak a kiválasztott tartományhoz: az utolsó %1$s látható. Csoportosítson hosszabb időszak szerint, vagy válasszon rövidebb tartományt."
+
+msgid "SLA dashboard"
+msgstr "SLA irányítópult"

@@ -1,0 +1,116 @@
+# SLA dashboard (módulo do Zabbix 8.0): textos que o domínio "frontend" do core não tem.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: lv\n"
+
+#. days, short (2d)
+msgid "%1$sd"
+msgstr "%1$sd"
+
+#. hours, short (5h)
+msgid "%1$sh"
+msgstr "%1$sh"
+
+#. minutes, short (30m)
+msgid "%1$sm"
+msgstr "%1$smin"
+
+#. seconds, short (10s)
+msgid "%1$ss"
+msgstr "%1$ss"
+
+msgid "No downtime"
+msgstr "Nav dīkstāves"
+
+msgid "Downtime within SLO"
+msgstr "Dīkstāve SLO robežās"
+
+msgid "Below SLO"
+msgstr "Zem SLO"
+
+msgid "Overall SLI"
+msgstr "Kopējais SLI"
+
+msgid "Time-weighted across %1$s services"
+msgstr "Laikā svērts pa %1$s servisiem"
+
+msgid "Services meeting SLO"
+msgstr "Servisi, kas atbilst SLO"
+
+msgid "%1$s below SLO"
+msgstr "%1$s zem SLO"
+
+msgid "All within SLO"
+msgstr "Visi SLO robežās"
+
+msgid "Incidents"
+msgstr "Incidenti"
+
+msgid "%1$s ongoing now"
+msgstr "%1$s notiek tagad"
+
+msgid "None ongoing"
+msgstr "Neviens nenotiek"
+
+msgid "Mean time to recover"
+msgstr "Vidējais atjaunošanas laiks"
+
+msgid "MTTR, resolved incidents"
+msgstr "MTTR, atrisinātie incidenti"
+
+msgid "SLA compliance"
+msgstr "SLA atbilstība"
+
+msgid "%1$s services"
+msgstr "Servisi: %1$s"
+
+msgid "SLI trend"
+msgstr "SLI tendence"
+
+msgid "Per SLA, time-weighted across its services; dashed line = SLO"
+msgstr "Katram SLA, laikā svērts pa tā servisiem; raustīta līnija = SLO"
+
+msgid "SLI heatmap"
+msgstr "SLI siltumkarte"
+
+msgid "Each cell is one period of one service, compared with the SLO of its SLA"
+msgstr "Katra šūna ir viena servisa viens periods, salīdzināts ar tā SLA SLO"
+
+msgid "No downtime in the selected period."
+msgstr "Izvēlētajā periodā dīkstāves nav."
+
+msgid "Error budget used"
+msgstr "Izlietotais kļūdu budžets"
+
+msgid "Downtime as a share of what the SLO allows; marker = 100%"
+msgstr "Dīkstāve kā daļa no SLO pieļautās; atzīme = 100%"
+
+msgid "Top downtime"
+msgstr "Lielākā dīkstāve"
+
+msgid "Services with the most downtime in the selected period"
+msgstr "Servisi ar lielāko dīkstāvi izvēlētajā periodā"
+
+#. Mean time to recover, abbreviation (table column)
+msgid "MTTR"
+msgstr "MTTR"
+
+#. table column with a sparkline
+msgid "Trend"
+msgstr "Tendence"
+
+msgid "Click a service to open its SLA report"
+msgstr "Noklikšķiniet uz servisa, lai atvērtu tā SLA pārskatu"
+
+msgid "No enabled SLA matches the filter. Choose other SLAs, services, hosts or tags in the filter above."
+msgstr "Filtram neatbilst neviens iespējots SLA. Augstāk filtrā izvēlieties citus SLA, servisus, hostus vai birkas."
+
+msgid "No service matches the filter."
+msgstr "Filtram neatbilst neviens serviss."
+
+msgid "Too many periods for the selected range: showing the last %1$s. Group by a longer period or choose a shorter range."
+msgstr "Izvēlētajam diapazonam ir pārāk daudz periodu: tiek rādīti pēdējie %1$s. Grupējiet pēc garāka perioda vai izvēlieties īsāku diapazonu."
+
+msgid "SLA dashboard"
+msgstr "SLA panelis"
