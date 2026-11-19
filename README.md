@@ -9,7 +9,7 @@ A frontend module that adds **Services → SLA dashboard** to Zabbix 8.0: a visu
 The page follows the Zabbix service tree, so it stays readable with one service or with hundreds of customers of a whitelabel provider.
 
 - **Overview**: one card per top service, that is, a service with an SLA that has no ancestor with an SLA (each customer, for example). Each card shows the SLI, the SLO and one status bar per period: no downtime, downtime within the SLO, below the SLO, or no data. Cards are sorted worst first and grouped by their parent without an SLA (e.g. the provider). With a single top service, the page opens it directly.
-- **Service**: click a card to see its SLI against the SLO, downtime, error budget and incidents, one SLI chart for the period, and its **components**: child services with an SLA, each with its own status bars. Components with children open the same way; the trail at the top goes back. A service in more than one SLA gets one tab per SLA. "SLA report" opens the native report for that service.
+- **Service**: click a card to see its SLI against the SLO, downtime, error budget and incidents, one SLI chart for the period, and its **components**: the child services, each with its own status bars. A child without an SLA of its own (for example, when the SLA matches a tag that only the parent has) is measured with the parent's SLA. Components with children open the same way; the trail at the top goes back. A service in more than one SLA gets one tab per SLA. "SLA report" opens the native report for that service ("Service" for a child measured with the parent's SLA, which the native report does not list).
 
 The path is kept in the URL, so the browser's back button works and a link opens the same service. The page refreshes every minute.
 

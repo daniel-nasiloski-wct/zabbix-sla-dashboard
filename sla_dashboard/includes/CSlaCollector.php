@@ -55,6 +55,7 @@ class CSlaCollector {
 			'slas' => [],
 			'services' => [],
 			'rows' => [],
+			'inherited' => [],
 			'errors' => $errors
 		];
 
@@ -84,8 +85,10 @@ class CSlaCollector {
 
 		$tags = array_values(array_filter($filter['tags'], static fn($t) => $t['tag'] !== '' || $t['value'] !== ''));
 
+		$services_by_sla = [];
+		$own = [];
 		foreach ($slas as $slaid => $sla) {
-			$services = API::Service()->get([
+			$services_by_sla[$slaid] = API::Service()->get([
 				'output' => ['serviceid', 'name', 'status', 'created_at'],
 				'selectTags' => ['tag', 'value'],
 				'selectStatusTimeline' => [$range],
@@ -96,6 +99,33 @@ class CSlaCollector {
 				'sortfield' => 'name',
 				'preservekeys' => true
 			]);
+			$own += $services_by_sla[$slaid];
+		}
+
+		foreach ($slas as $slaid => $sla) {
+			$services = $services_by_sla[$slaid];
+
+			// Componentes sem SLA própria (ex. a SLA casa uma tag que só o serviço pai tem): entram com a
+			// SLA do ancestral, para a página mostrar a árvore inteira abaixo do serviço medido.
+			$inherited = [];
+			if ($services) {
+				$descendants = array_diff(self::withDescendants(array_map('strval', array_keys($services))),
+					array_map('strval', array_keys($own))
+				);
+				if ($serviceids !== null) {
+					$descendants = array_intersect($descendants, $serviceids);
+				}
+				if ($descendants) {
+					$inherited = API::Service()->get([
+						'output' => ['serviceid', 'name', 'status', 'created_at'],
+						'selectTags' => ['tag', 'value'],
+						'selectStatusTimeline' => [$range],
+						'serviceids' => array_values($descendants),
+						'sortfield' => 'name',
+						'preservekeys' => true
+					]);
+				}
+			}
 
 			$sla_start = self::alignedEffective($sla);
 			$cells_by_bucket = [];
@@ -109,42 +139,54 @@ class CSlaCollector {
 			$sla_up = array_fill(0, count($buckets), 0);
 			$sla_down = array_fill(0, count($buckets), 0);
 
-			foreach ($services as $serviceid => $service) {
-				$result['services'][$serviceid] = [
-					'name' => $service['name'],
-					'status' => (int) $service['status'],
-					'tags' => $service['tags']
-				];
+			foreach ([false => $services, true => $inherited] as $is_inherited => $list) {
+				foreach ($list as $serviceid => $service) {
+					$result['services'][$serviceid] = [
+						'name' => $service['name'],
+						'status' => (int) $service['status'],
+						'tags' => $service['tags']
+					];
 
-				$segments = self::segments($service['status_timeline'][0], $range['period_from'], min($range['period_to'], time()));
-				$row = [
-					'slaid' => (string) $slaid,
-					'serviceid' => (string) $serviceid,
-					'up' => 0, 'down' => 0, 'max' => 0,
-					'cells' => []
-				];
+					$segments = self::segments($service['status_timeline'][0], $range['period_from'],
+						min($range['period_to'], time())
+					);
+					$row = [
+						'slaid' => (string) $slaid,
+						'serviceid' => (string) $serviceid,
+						'up' => 0, 'down' => 0, 'max' => 0,
+						'cells' => []
+					];
 
-				foreach ($buckets as $b => $bucket) {
-					if ($cells_by_bucket[$b] === null) {
-						$row['cells'][] = null;
-						continue;
+					foreach ($buckets as $b => $bucket) {
+						if ($cells_by_bucket[$b] === null) {
+							$row['cells'][] = null;
+							continue;
+						}
+						$cell = self::cell($cells_by_bucket[$b], $excluded, (int) $service['created_at'], $segments);
+						$row['up'] += $cell['up'];
+						$row['down'] += $cell['down'];
+						$row['max'] += $cell['max'];
+						if (!$is_inherited) {
+							$sla_up[$b] += $cell['up'];
+							$sla_down[$b] += $cell['down'];
+						}
+						$row['cells'][] = $cell['up'] + $cell['down'] > 0
+							? [round($cell['up'] / ($cell['up'] + $cell['down']) * 100, 4), $cell['down'], $cell['incidents']]
+							: null;
 					}
-					$cell = self::cell($cells_by_bucket[$b], $excluded, (int) $service['created_at'], $segments);
-					$row['up'] += $cell['up'];
-					$row['down'] += $cell['down'];
-					$row['max'] += $cell['max'];
-					$sla_up[$b] += $cell['up'];
-					$sla_down[$b] += $cell['down'];
-					$row['cells'][] = $cell['up'] + $cell['down'] > 0
-						? [round($cell['up'] / ($cell['up'] + $cell['down']) * 100, 4), $cell['down'], $cell['incidents']]
-						: null;
-				}
 
-				$row += self::incidents($segments, max($range['period_from'], $sla_start), (int) $service['created_at']);
-				$row['sli'] = $row['up'] + $row['down'] > 0 ? $row['up'] / ($row['up'] + $row['down']) * 100 : null;
-				$row['budget'] = self::errorBudget($row['up'], $row['down'], $row['max'], (float) $sla['slo']);
-				unset($row['max']);
-				$result['rows'][] = $row;
+					$row += self::incidents($segments, max($range['period_from'], $sla_start), (int) $service['created_at']);
+					$row['sli'] = $row['up'] + $row['down'] > 0 ? $row['up'] / ($row['up'] + $row['down']) * 100 : null;
+					$row['budget'] = self::errorBudget($row['up'], $row['down'], $row['max'], (float) $sla['slo']);
+					unset($row['max']);
+
+					if ($is_inherited) {
+						$result['inherited'][] = $row;
+					}
+					else {
+						$result['rows'][] = $row;
+					}
+				}
 			}
 
 			$result['slas'][] = [

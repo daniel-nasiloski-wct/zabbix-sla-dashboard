@@ -2,8 +2,8 @@
  * SLA dashboard (Services → SLA dashboard). Navega pela árvore de serviços do Zabbix:
  *  - visão geral: um card por serviço de topo (o serviço com SLA que não tem ancestral com SLA, ex. cada
  *    cliente de um provedor whitelabel), agrupados pelo pai sem SLA e ordenados do pior para o melhor;
- *  - clicar abre o serviço: SLI × SLO no período, um gráfico, e os componentes (filhos com SLA), que
- *    também podem ser abertos. O caminho fica na URL (#/id/id), então o voltar do navegador funciona.
+ *  - clicar abre o serviço: SLI × SLO no período, um gráfico, e os componentes (filhos), que também
+ *    podem ser abertos. Filho sem SLA própria é medido com a SLA do ancestral (linhas "inherited"). O caminho fica na URL (#/id/id), então o voltar do navegador funciona.
  * SVG e DOM puros. Cores pelo tema do Zabbix (sla-dashboard.css). Textos pelo dicionário traduzido no
  * PHP: o CI18n lê os textos de t() direto deste arquivo, então todo texto visível passa por t() com
  * aspas simples.
@@ -112,24 +112,32 @@ const STATE_LABEL = () => ({
 
 function model(data) {
 	const slas = Object.fromEntries(data.slas.map((s) => [s.slaid, s]));
-	const rowsBy = new Map();
-	for (const r of data.rows) {
-		const sla = slas[r.slaid];
-		const row = {...r, slo: sla.slo, slaName: sla.name, state: stateOf(r.sli, sla.slo, r.down)};
-		if (!rowsBy.has(r.serviceid)) rowsBy.set(r.serviceid, []);
-		rowsBy.get(r.serviceid).push(row);
-	}
+	// rowsBy: serviços com SLA própria; inheritedBy: componentes sem SLA, medidos com a SLA do ancestral.
+	const index = (list, inherited) => {
+		const by = new Map();
+		for (const r of list || []) {
+			const sla = slas[r.slaid];
+			const row = {...r, inherited, slo: sla.slo, slaName: sla.name, state: stateOf(r.sli, sla.slo, r.down)};
+			if (!by.has(r.serviceid)) by.set(r.serviceid, []);
+			by.get(r.serviceid).push(row);
+		}
+		return by;
+	};
+	const ownBy = index(data.rows, false);
+	const inheritedBy = index(data.inherited, true);
+	const rowsOf = (id) => ownBy.get(id) || inheritedBy.get(id) || [];
 	const nodes = data.nodes || {};
 	const name = (id) => (nodes[id] ? nodes[id][0] : data.services[id]?.name ?? id);
 	const problem = (id) => (nodes[id] ? nodes[id][1] >= 0 : false);
 	const parents = (id) => (nodes[id] ? nodes[id][2] : []).filter((p) => nodes[p]);
 	const children = (id) => (nodes[id] ? nodes[id][3] : []).filter((c) => nodes[c]);
-	const measured = (id) => rowsBy.has(id);
+	const measured = (id) => ownBy.has(id);
+	const shown = (id) => rowsOf(id).length > 0;
 	const margin = (r) => (r.sli ?? 101) - r.slo;
 
 	// Linha principal de um serviço: a da SLA pedida, senão a de pior margem até o SLO.
 	const primary = (id, slaid = null) => {
-		const rows = rowsBy.get(id) || [];
+		const rows = rowsOf(id);
 		if (slaid) {
 			const same = rows.find((r) => r.slaid === slaid);
 			if (same) return same;
@@ -150,7 +158,7 @@ function model(data) {
 		return false;
 	};
 
-	// Filhos com SLA mais próximos (desce pelos nós sem SLA).
+	// Filhos com linha (própria ou herdada) mais próximos; desce pelos que ficaram de fora do filtro.
 	const components = (id) => {
 		const out = [];
 		const seen = new Set([id]);
@@ -159,13 +167,13 @@ function model(data) {
 			const c = queue.shift();
 			if (seen.has(c)) continue;
 			seen.add(c);
-			if (measured(c)) out.push(c);
+			if (shown(c)) out.push(c);
 			else queue.push(...children(c));
 		}
 		return out;
 	};
 
-	const top = [...rowsBy.keys()].filter((id) => !hasMeasuredAncestor(id));
+	const top = [...ownBy.keys()].filter((id) => !hasMeasuredAncestor(id));
 
 	// Grupo do card na visão geral: o pai sem SLA (ex. "Whitelabel Hosting").
 	const groupOf = (id) => {
@@ -178,7 +186,7 @@ function model(data) {
 		return (RANK[ra.state] - RANK[rb.state]) || (margin(ra) - margin(rb)) || name(a).localeCompare(name(b), LANG);
 	};
 
-	return {rowsBy, name, problem, measured, primary, components, top, groupOf, byWorst};
+	return {rowsOf, name, problem, measured, shown, primary, components, top, groupOf, byWorst};
 }
 
 // ---------------------------------------------------------------- DOM helpers
@@ -423,18 +431,21 @@ function crumbs(root, m, path, open) {
 
 function detail(root, data, m, path, open, slaPick) {
 	const id = path.at(-1);
-	const rows = m.rowsBy.get(id) || [];
+	const rows = m.rowsOf(id);
 	const row = m.primary(id, slaPick.get(id) || null);
 
 	crumbs(root, m, path, open);
 
 	const head = el('div', {class: `sd-svc is-${row.state}`});
-	const report = `zabbix.php?action=slareport.list&filter_slaid=${encodeURIComponent(row.slaid)}&filter_serviceid=${encodeURIComponent(id)}&filter_set=1`;
+	// O SLA report do Zabbix só lista serviços da SLA; para um componente herdado, abre o serviço.
+	const report = row.inherited
+		? `zabbix.php?action=service.list&serviceid=${encodeURIComponent(id)}`
+		: `zabbix.php?action=slareport.list&filter_slaid=${encodeURIComponent(row.slaid)}&filter_serviceid=${encodeURIComponent(id)}&filter_set=1`;
 	head.innerHTML = `
 		<div class="sd-svc-top">
 			<div class="sd-svc-name">${m.problem(id) ? `<span class="sd-live" title="${esc(t('Problem'))}"></span>` : ''}${esc(m.name(id))}</div>
 			<span class="sd-chip is-${row.state}">${esc(STATE_LABEL()[row.state])}</span>
-			<a class="sd-svc-link" href="${report}">${esc(t('SLA report'))} ›</a>
+			<a class="sd-svc-link" href="${report}">${esc(row.inherited ? t('Service') : t('SLA report'))} ›</a>
 		</div>
 		<div class="sd-stats">
 			<div class="sd-stat sd-stat-main"><span class="sd-stat-value">${esc(pct(row.sli))}</span><span class="sd-stat-label">${esc(t('SLI'))} · ${esc(t('SLO'))} ${esc(pct(row.slo))}</span></div>
@@ -521,7 +532,7 @@ function mount() {
 
 		const m = model(data);
 		// Caminho da URL, só com serviços que ainda aparecem; com um único serviço de topo, ele abre direto.
-		let path = readPath().filter((id) => m.measured(id));
+		let path = readPath().filter((id) => m.shown(id));
 		if (!path.length && m.top.length === 1) path = [m.top[0]];
 
 		if (path.length) {
